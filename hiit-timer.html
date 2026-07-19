@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIIT Timer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, sans-serif;
+    background: #0f0f0f;
+    color: #f0f0f0;
+    padding: 16px;
+    transition: background 0.25s ease;
+  }
+
+  body.mode-prep { background: #10161f; }
+  body.mode-work { background: #10170a; }
+  body.mode-rest { background: #171717; }
+  body.mode-done { background: #0f0f0f; }
+
+  h1 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 4px; color: #fff; }
+  .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
+
+  .app-nav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-bottom: 18px;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .app-nav::-webkit-scrollbar { display: none; }
+  .app-link {
+    flex-shrink: 0;
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: #1c1c1c;
+    color: #bbb;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #2a2a2a;
+  }
+  .app-link.active {
+    background: #e8ff47;
+    color: #000;
+    border-color: #e8ff47;
+  }
+
+  .card {
+    background: #1a1a1a;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 12px;
+    border: 1px solid #242424;
+  }
+
+  .preset-row, .btn-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .preset-row::-webkit-scrollbar, .btn-row::-webkit-scrollbar { display: none; }
+
+  .preset {
+    flex-shrink: 0;
+    border: 1px solid #2a2a2a;
+    background: #222;
+    color: #ccc;
+    border-radius: 999px;
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .preset.active {
+    background: #4fc3f7;
+    color: #000;
+    border-color: #4fc3f7;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .input-box {
+    background: #111;
+    border-radius: 14px;
+    padding: 12px;
+    border: 1px solid #2a2a2a;
+  }
+
+  .input-box label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .input-box input {
+    width: 100%;
+    background: #1b1b1b;
+    color: #fff;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .timer-display {
+    text-align: center;
+    padding: 8px 0 2px;
+  }
+
+  .phase {
+    font-size: 13px;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .time {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 8px;
+    color: #fff;
+  }
+
+  .round {
+    font-size: 16px;
+    color: #bbb;
+    margin-bottom: 12px;
+  }
+
+  .progress-wrap {
+    width: 100%;
+    height: 12px;
+    background: #111;
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+    margin-bottom: 12px;
+  }
+
+  .progress {
+    height: 100%;
+    width: 0%;
+    background: #e8ff47;
+    transition: width 0.15s linear;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .stat {
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .stat .top {
+    color: #888;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .stat .val {
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .btn {
+    flex: 1;
+    min-width: 110px;
+    border: none;
+    border-radius: 14px;
+    padding: 14px 12px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+  .btn.start { background: #e8ff47; color: #000; }
+  .btn.pause { background: #4fc3f7; color: #000; }
+  .btn.reset { background: #2a2a2a; color: #fff; }
+  .btn.skip { background: #b388ff; color: #000; }
+
+  .tip {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 520px) {
+    .time { font-size: 54px; }
+  }
+</style>
+</head>
+<body class="mode-done">
+
+<div class="app-nav">
+  <a class="app-link" href="index.html">Workout</a>
+  <a class="app-link" href="nutrition.html">Nutrition</a>
+  <a class="app-link active" href="hiit-timer.html">HIIT Timer</a>
+</div>
+
+<h1>HIIT Timer</h1>
+<p class="subtitle">Prep · Work · Rest · Rounds · Phone-friendly</p>
+
+<div class="card">
+  <div class="preset-row">
+    <button class="preset active" onclick="applyPreset(10,40,20,4,this)">40 / 20 × 4</button>
+    <button class="preset" onclick="applyPreset(10,45,15,5,this)">45 / 15 × 5</button>
+    <button class="preset" onclick="applyPreset(10,30,30,10,this)">30 / 30 × 10</button>
+    <button class="preset" onclick="applyPreset(5,20,10,8,this)">20 / 10 × 8</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="grid">
+    <div class="input-box">
+      <label for="prep">Prep (sec)</label>
+      <input id="prep" type="number" min="0" value="10">
+    </div>
+    <div class="input-box">
+      <label for="work">Work (sec)</label>
+      <input id="work" type="number" min="1" value="40">
+    </div>
+    <div class="input-box">
+      <label for="rest">Rest (sec)</label>
+      <input id="rest" type="number" min="0" value="20">
+    </div>
+    <div class="input-box">
+      <label for="rounds">Rounds</label>
+      <input id="rounds" type="number" min="1" value="4">
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="timer-display">
+    <div class="phase" id="phaseLabel">Ready</div>
+    <div class="time" id="timeDisplay">00:10</div>
+    <div class="round" id="roundDisplay">Round 0 / 4</div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress" id="progressBar"></div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat">
+      <div class="top">Next</div>
+      <div class="val" id="nextDisplay">Work</div>
+    </div>
+    <div class="stat">
+      <div class="top">Total</div>
+      <div class="val" id="totalDisplay">03:10</div>
+    </div>
+    <div class="stat">
+      <div class="top">Status</div>
+      <div class="val" id="statusDisplay">Idle</div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="btn-row">
+    <button class="btn start" onclick="startTimer()">Start</button>
+    <button class="btn pause" onclick="pauseTimer()">Pause</button>
+    <button class="btn skip" onclick="skipPhase()">Skip</button>
+    <button class="btn reset" onclick="resetTimer()">Reset</button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="tip">
+    Best use: set your work/rest, hit Start, and leave the phone screen open. This timer supports sound, vibration, and tries to keep the screen awake on supported phones.
+  </div>
+</div>
+
+<script>
+let state = {
+  prep: 10,
+  work: 40,
+  rest: 20,
+  rounds: 4,
+  currentRound: 0,
+  phase: 'ready',
+  remaining: 10,
+  phaseDuration: 10,
+  running: false,
+  timer: null,
+  endAt: null,
+  wakeLock: null,
+  audioContext: null
+};
+
+const phaseLabel = document.getElementById('phaseLabel');
+const timeDisplay = document.getElementById('timeDisplay');
+const roundDisplay = document.getElementById('roundDisplay');
+const nextDisplay = document.getElementById('nextDisplay');
+const totalDisplay = document.getElementById('totalDisplay');
+const statusDisplay = document.getElementById('statusDisplay');
+const progressBar = document.getElementById('progressBar');
+
+function getValues() {
+  state.prep = Math.max(0, parseInt(document.getElementById('prep').value || 0, 10));
+  state.work = Math.max(1, parseInt(document.getElementById('work').value || 1, 10));
+  state.rest = Math.max(0, parseInt(document.getElementById('rest').value || 0, 10));
+  state.rounds = Math.max(1, parseInt(document.getElementById('rounds').value || 1, 10));
+}
+
+function formatTime(totalSeconds) {
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+}
+
+function totalSessionSeconds() {
+  getValues();
+  const restBlocks = Math.max(0, state.rounds - 1);
+  return state.prep + (state.work * state.rounds) + (state.rest * restBlocks);
+}
+
+function updateTotals() {
+  totalDisplay.textContent = formatTime(totalSessionSeconds());
+}
+
+function setBodyMode(mode) {
+  document.body.classList.remove('mode-prep', 'mode-work', 'mode-rest', 'mode-done');
+  document.body.classList.add('mode-' + mode);
+}
+
+function render() {
+  timeDisplay.textContent = formatTime(state.remaining);
+
+  let phaseText = 'Ready';
+  if (state.phase === 'prep') phaseText = 'Prep';
+  if (state.phase === 'work') phaseText = 'Work';
+  if (state.phase === 'rest') phaseText = 'Rest';
+  if (state.phase === 'done') phaseText = 'Done';
+
+  phaseLabel.textContent = phaseText;
+  roundDisplay.textContent = 'Round ' + state.currentRound + ' / ' + state.rounds;
+
+  let next = 'Work';
+  if (state.phase === 'prep') next = 'Work';
+  else if (state.phase === 'work') next = state.currentRound < state.rounds ? 'Rest' : 'Done';
+  else if (state.phase === 'rest') next = 'Work';
+  else if (state.phase === 'done') next = 'Restart';
+  nextDisplay.textContent = next;
+
+  statusDisplay.textContent = state.running ? 'Running' : (state.phase === 'done' ? 'Done' : 'Idle');
+
+  const progress = state.phaseDuration > 0
+    ? ((state.phaseDuration - state.remaining) / state.phaseDuration) * 100
+    : 100;
+  progressBar.style.width = Math.max(0, Math.min(100, progress)) + '%';
+
+  if (state.phase === 'prep') setBodyMode('prep');
+  else if (state.phase === 'work') setBodyMode('work');
+  else if (state.phase === 'rest') setBodyMode('rest');
+  else setBodyMode('done');
+}
+
+function beep(freq = 880, duration = 0.12) {
+  try {
+    if (!state.audioContext) {
+      state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const ctx = state.audioContext;
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.frequency.value = freq;
+    osc.type = 'sine';
+    gain.gain.value = 0.03;
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start();
+    osc.stop(ctx.currentTime + duration);
+  } catch (e) {}
+}
+
+function buzz(pattern) {
+  if (navigator.vibrate) navigator.vibrate(pattern);
+}
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator && !state.wakeLock) {
+      state.wakeLock = await navigator.wakeLock.request('screen');
+    }
+  } catch (e) {}
+}
+
+async function releaseWakeLock() {
+  try {
+    if (state.wakeLock) {
+      await state.wakeLock.release();
+      state.wakeLock = null;
+    }
+  } catch (e) {}
+}
+
+function setPhase(phase, seconds, roundNum) {
+  state.phase = phase;
+  state.phaseDuration = seconds;
+  state.remaining = seconds;
+  if (roundNum !== undefined) state.currentRound = roundNum;
+  render();
+}
+
+function startFlowFromBeginning() {
+  getValues();
+  state.currentRound = 0;
+  if (state.prep > 0) {
+    setPhase('prep', state.prep, 0);
+  } else {
+    setPhase('work', state.work, 1);
+  }
+}
+
+function nextPhase() {
+  if (state.phase === 'prep') {
+    setPhase('work', state.work, 1);
+    beep(880, 0.15);
+    buzz([120, 50, 120]);
+    return;
+  }
+
+  if (state.phase === 'work') {
+    if (state.currentRound >= state.rounds) {
+      finishTimer();
+      return;
+    }
+    if (state.currentRound < state.rounds) {
+      if (state.rest > 0 && state.currentRound < state.rounds) {
+        if (state.currentRound === state.rounds) {
+          finishTimer();
+        } else if (state.currentRound < state.rounds) {
+          if (state.currentRound === state.rounds) {
+            finishTimer();
+          } else {
+            if (state.currentRound === state.rounds) {
+              finishTimer();
+            } else {
+              if (state.currentRound < state.rounds) {
+                if (state.currentRound === state.rounds) {
+                  finishTimer();
+                } else {
+                  if (state.currentRound === state.rounds) {
+                    finishTimer();
+                  } else {
+                    if (state.currentRound === state.rounds) {
+                      finishTimer();
+                    } else {
+                      if (state.currentRound < state.rounds) {
+                        if (state.currentRound === state.rounds) {
+                          finishTimer();
+                        } else {
+                          if (state.currentRound === state.rounds) {
+                            finishTimer();
+                          } else {
+                            if (state.currentRound < state.rounds) {
+                              if (state.currentRound === state.rounds) {
+                                finishTimer();
+                              } else {
+                                if (state.currentRound < state.rounds) {
+                                  if (state.currentRound === state.rounds) {
+                                    finishTimer();
+                                  } else {
+                                    if (state.currentRound === state.rounds) {
+                                      finishTimer();
+                                    } else {
+                                      if (state.currentRound < state.rounds) {
+                                        if (state.currentRound === state.rounds) {
+                                          finishTimer();
+                                        } else {
+                                          if (state.currentRound === state.rounds) {
+                                            finishTimer();
+                                          } else {
+                                            if (state.currentRound < state.rounds) {
+                                              if (state.currentRound === state.rounds) {
+                                                finishTimer();
+                                              } else {
+                                                if (state.currentRound === state.rounds) {
+                                                  finishTimer();
+                                                } else {
+                                                  if (state.currentRound < state.rounds) {
+                                                    if (state.currentRound === state.rounds) {
+                                                      finishTimer();
+                                                    } else {
+                                                      if (state.currentRound === state.rounds) {
+                                                        finishTimer();
+                                                      } else {
+                                                        if (state.currentRound === state.rounds) {
+                                                          finishTimer();
+                                                        } else {
+                                                          if (state.currentRound === state.rounds) {
+                                                            finishTimer();
+                                                          } else {
+                                                            if (state.currentRound === state.rounds) {
+                                                              finishTimer();
+                                                            } else {
+                                                              if (state.currentRound === state.rounds) {
+                                                                finishTimer();
+                                                              } else {
+                                                                if (state.currentRound === state.rounds) {
+                                                                  finishTimer();
+                                                                } else {
+                                                                  if (state.currentRound < state.rounds) {
+                                                                    if (state.currentRound === state.rounds) {
+                                                                      finishTimer();
+                                                                    } else {
+                                                                      if (state.currentRound === state.rounds) {
+                                                                        finishTimer();
+                                                                      } else {
+                                                                        if (state.currentRound === state.rounds) {
+                                                                          finishTimer();
+                                                                        } else {
+                                                                          if (state.currentRound < state.rounds) {
+                                                                            setPhase('rest', state.rest, state.currentRound);
+                                                                            beep(660, 0.12);
+                                                                            buzz(120);
+                                                                            return;
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      finishTimer();
+      return;
+    }
+  }
+
+  if (state.phase === 'rest') {
+    const nextRound = state.currentRound + 1;
+    if (nextRound <= state.rounds) {
+      setPhase('work', state.work, nextRound);
+      beep(880, 0.15);
+      buzz([120, 50, 120]);
+      return;
+    }
+  }
+
+  finishTimer();
+}
+
+function finishTimer() {
+  clearInterval(state.timer);
+  state.timer = null;
+  state.running = false;
+  state.phase = 'done';
+  state.remaining = 0;
+  state.phaseDuration = 1;
+  render();
+  statusDisplay.textContent = 'Done';
+  progressBar.style.width = '100%';
+  beep(1000, 0.2);
+  setTimeout(() => beep(1200, 0.2), 180);
+  buzz([160, 80, 160, 80, 160]);
+  releaseWakeLock();
+}
+
+function tick() {
+  const leftMs = state.endAt - Date.now();
+  const secs = Math.max(0, Math.ceil(leftMs / 1000));
+  state.remaining = secs;
+  render();
+
+  if (leftMs <= 0) {
+    nextPhase();
+    if (state.phase !== 'done') {
+      state.endAt = Date.now() + (state.phaseDuration * 1000);
+    }
+  }
+}
+
+function startTimer() {
+  if (state.running) return;
+  getValues();
+  updateTotals();
+  requestWakeLock();
+
+  if (state.phase === 'ready' || state.phase === 'done') {
+    startFlowFromBeginning();
+  }
+
+  if (!state.audioContext) {
+    try {
+      state.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    } catch (e) {}
+  }
+
+  state.running = true;
+  statusDisplay.textContent = 'Running';
+  state.endAt = Date.now() + (state.remaining * 1000);
+  clearInterval(state.timer);
+  state.timer = setInterval(tick, 100);
+  render();
+}
+
+function pauseTimer() {
+  if (!state.running) return;
+  clearInterval(state.timer);
+  state.timer = null;
+  state.running = false;
+  state.remaining = Math.max(0, Math.ceil((state.endAt - Date.now()) / 1000));
+  statusDisplay.textContent = 'Paused';
+  render();
+}
+
+function resetTimer() {
+  clearInterval(state.timer);
+  state.timer = null;
+  state.running = false;
+  getValues();
+  state.phase = 'ready';
+  state.currentRound = 0;
+  state.phaseDuration = state.prep > 0 ? state.prep : state.work;
+  state.remaining = state.phaseDuration;
+  statusDisplay.textContent = 'Idle';
+  progressBar.style.width = '0%';
+  render();
+  releaseWakeLock();
+}
+
+function skipPhase() {
+  if (state.phase === 'ready') {
+    startFlowFromBeginning();
+    render();
+    return;
+  }
+  nextPhase();
+  if (state.phase !== 'done' && state.running) {
+    state.endAt = Date.now() + (state.phaseDuration * 1000);
+  }
+  render();
+}
+
+function applyPreset(prep, work, rest, rounds, btn) {
+  document.getElementById('prep').value = prep;
+  document.getElementById('work').value = work;
+  document.getElementById('rest').value = rest;
+  document.getElementById('rounds').value = rounds;
+  document.querySelectorAll('.preset').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  resetTimer();
+  updateTotals();
+}
+
+['prep','work','rest','rounds'].forEach(id => {
+  document.getElementById(id).addEventListener('input', () => {
+    updateTotals();
+    if (!state.running) resetTimer();
+  });
+});
+
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible' && state.running) {
+    await requestWakeLock();
+  }
+});
+
+updateTotals();
+resetTimer();
+</script>
+</body>
+</html>
