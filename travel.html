@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Travel Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-page="travel">
+  <div class="page-wrap">
+    <div id="app-nav"></div>
+
+    <header class="hero">
+      <h1>Travel Dashboard</h1>
+      <p class="subtitle">Travel-week training · room workouts · hotel gym options · run fallback</p>
+    </header>
+
+    <div class="card">
+      <h2>Travel Week Rules</h2>
+      <div class="simple-list">
+        <li>Keep the same weekly pattern as your regular plan.</li>
+        <li>Each day has a short <strong>10–15 min morning room session</strong>.</li>
+        <li>Each day also has a <strong>main session later</strong> if time and energy allow.</li>
+        <li><strong>Monday and Thursday</strong> are built as travel-bridge days.</li>
+        <li>If you are <strong>home by Thursday</strong>, switch back to your normal Thursday strength day.</li>
+        <li>If you are home Friday/Saturday/Sunday, your normal home workouts still apply.</li>
+      </div>
+    </div>
+
+    <div class="day-tabs">
+      <button class="tab active" onclick="showTravelDay('mon', this)">MON</button>
+      <button class="tab" onclick="showTravelDay('tue', this)">TUE</button>
+      <button class="tab run" onclick="showTravelDay('wed', this)">WED</button>
+      <button class="tab" onclick="showTravelDay('thu', this)">THU</button>
+      <button class="tab run" onclick="showTravelDay('fri', this)">FRI</button>
+      <button class="tab" onclick="showTravelDay('sat', this)">SAT</button>
+      <button class="tab rest" onclick="showTravelDay('sun', this)">SUN</button>
+    </div>
+
+    <!-- MON -->
+    <div id="mon">
+      <div class="card">
+        <div class="card-header"><span class="badge">TRAVEL</span><h2>Monday · Travel Reset</h2></div>
+
+        <div class="section-label">Morning Room Workout · 10–12 min</div>
+        <div class="exercise-row"><div><div class="ex-name">March in Place or Fast Walk Hallway</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">World's Greatest Stretch</div></div><div class="ex-sets">4 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">2 × 15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Incline Push-Ups on Bed or Desk</div></div><div class="ex-sets">2 × 10–15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Glute Bridge</div></div><div class="ex-sets">2 × 15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Forearm Plank</div></div><div class="ex-sets">2 × 30s</div></div>
+
+        <div class="section-label">Main Session Later · 20–30 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Option A · Brisk Walk</div><div class="ex-note">Best if airport / travel day is hectic</div></div><div class="ex-sets">20–30 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option B · Easy Run</div><div class="ex-note">If you have a safe route outside</div></div><div class="ex-sets run">20 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option C · Hotel Gym Bike / Treadmill</div></div><div class="ex-sets">20 min</div></div>
+
+        <div class="tip-box">💡 Monday is about staying switched on, not crushing it. Win the day with the morning room workout even if the rest gets messy.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before first steps</div>
+        <div class="foot-item">· Evening: frozen water bottle roll 3 min each</div>
+        <div class="foot-item">· Calf stretch against wall or suitcase: 90s each leg</div>
+      </div>
+    </div>
+
+    <!-- TUE -->
+    <div id="tue" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge pull">PULL</span><h2>Tuesday · Travel Pull + Strength</h2></div>
+
+        <div class="section-label">Morning Room Workout · 10–15 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts or Towel Pulls</div></div><div class="ex-sets">2 × 20</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Arm Circles + Scap Squeezes</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Split Squat</div></div><div class="ex-sets">2 × 10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Push-Ups</div></div><div class="ex-sets">2 × 10–15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Bird Dogs</div></div><div class="ex-sets">2 × 10 each</div></div>
+
+        <div class="section-label">Main Session Later · 25–35 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Hotel Gym Option · Lat Pulldown</div></div><div class="ex-sets pull">4 × 10–12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hotel Gym Option · Seated Row</div></div><div class="ex-sets pull">3 × 12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">DB or Suitcase Romanian Deadlift</div></div><div class="ex-sets">3 × 10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Push-Ups or DB Floor Press</div></div><div class="ex-sets">3 × 12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Rear Foot Elevated Split Squat</div></div><div class="ex-sets">3 × 10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Plank or Hollow Hold</div></div><div class="ex-sets">3 × 30–40s</div></div>
+
+        <div class="tip-box pull">💡 If the hotel gym is weak, use a backpack or suitcase for rows and RDLs. Pattern matters more than perfect equipment.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Morning foot massage before first steps</div>
+        <div class="foot-item">· Evening bottle roll 3 min each</div>
+        <div class="foot-item">· Calf stretch 90s each leg</div>
+      </div>
+    </div>
+
+    <!-- WED -->
+    <div id="wed" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge run">RUN</span><h2>Wednesday · Easy Travel Run</h2></div>
+
+        <div class="section-label">Morning Room Workout · 10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">3 min</div></div>
+
+        <div class="section-label">Main Session Later</div>
+        <div class="exercise-row"><div><div class="ex-name">Easy Run Outside</div><div class="ex-note">Conversational pace</div></div><div class="ex-sets run">20–35 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Fallback · Treadmill Walk / Jog</div></div><div class="ex-sets">20–30 min</div></div>
+
+        <div class="section-label">Post-Run · 8–10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">3–5 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Foam Roll if Hotel Gym Has One</div></div><div class="ex-sets">3 min</div></div>
+
+        <div class="tip-box run">💡 This should feel like your normal Wednesday. Keep it easy, especially if sleep or travel stress was rough.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Do not skip the post-run calf and foot work</div>
+        <div class="foot-item">· If feet feel off, shorten the run and keep the habit</div>
+      </div>
+    </div>
+
+    <!-- THU -->
+    <div id="thu" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge">BRIDGE</span><h2>Thursday · Travel-to-Home Bridge</h2></div>
+
+        <div class="section-label">Morning Room Workout · 10–12 min</div>
+        <div class="exercise-row"><div><div class="ex-name">March in Place</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">2 × 15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Push-Ups</div></div><div class="ex-sets">2 × 10–15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Reverse Lunge</div></div><div class="ex-sets">2 × 8 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div></div><div class="ex-sets">2 × 10 each</div></div>
+
+        <div class="section-label">Main Session Later</div>
+        <div class="exercise-row"><div><div class="ex-name">Option A · If Home</div><div class="ex-note">Do your normal Thursday full body strength workout</div></div><div class="ex-sets">Home plan</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option B · Still Traveling</div><div class="ex-note">Hotel room strength circuit below</div></div><div class="ex-sets">25 min</div></div>
+
+        <div class="section-label">Hotel Room Circuit · 3–4 Rounds</div>
+        <div class="exercise-row"><div><div class="ex-name">Split Squat</div></div><div class="ex-sets">12 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Push-Ups</div></div><div class="ex-sets">12–20</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Suitcase or Backpack RDL</div></div><div class="ex-sets">12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Backpack or Suitcase Row</div></div><div class="ex-sets pull">12 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Plank</div></div><div class="ex-sets">40s</div></div>
+
+        <div class="tip-box">💡 Thursday is the pivot day. If you are home, go right back to the regular plan. If not, this keeps Friday and Saturday lined up.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Treat Thursday like a reset so Friday run quality stays decent</div>
+      </div>
+    </div>
+
+    <!-- FRI -->
+    <div id="fri" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge run">RUN</span><h2>Friday · Run Day</h2></div>
+
+        <div class="section-label">Morning Room Workout · 8–10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">3 min</div></div>
+
+        <div class="section-label">Main Session Later</div>
+        <div class="exercise-row"><div><div class="ex-name">Option A · If Home</div><div class="ex-note">Use your normal Friday run workout</div></div><div class="ex-sets">Home plan</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option B · Still Traveling · Easy</div></div><div class="ex-sets run">25–30 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option C · Still Traveling · Tempo</div><div class="ex-note">10 easy · 10 steady · 5 easy</div></div><div class="ex-sets run">25 min</div></div>
+
+        <div class="tip-box run">💡 If Thursday ended late, choose the easy option. Preserve the rhythm and save intensity for when recovery is better.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Post-run calf stretch and foot roll are non-negotiable</div>
+      </div>
+    </div>
+
+    <!-- SAT -->
+    <div id="sat" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge">CIRCUIT</span><h2>Saturday · Travel Circuit</h2></div>
+
+        <div class="section-label">Morning Room Workout · 10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Jumping Jacks or March in Place</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Inchworms</div></div><div class="ex-sets">6 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
+
+        <div class="section-label">Main Session · 20–30 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Circuit · 4 Rounds</div><div class="ex-note">40s on / 20s off</div></div><div class="ex-sets">4 rounds</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Squat or Goblet Squat</div></div><div class="ex-sets">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Push-Ups</div></div><div class="ex-sets">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Reverse Lunges</div></div><div class="ex-sets">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Backpack Row or Band Row</div></div><div class="ex-sets pull">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Glute Bridge</div></div><div class="ex-sets">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Plank Hold</div></div><div class="ex-sets">40s</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Rest Between Rounds</div></div><div class="ex-sets">90s</div></div>
+
+        <div class="tip-box pull">💡 This mirrors your normal Saturday circuit style. If you're home, go back to the regular Saturday workout instead.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Keep feet warm after the workout if you've been on them all week</div>
+      </div>
+    </div>
+
+    <!-- SUN -->
+    <div id="sun" class="hidden">
+      <div class="card">
+        <div class="card-header"><span class="badge rest">RECOVER</span><h2>Sunday · Recover</h2></div>
+
+        <div class="section-label">Morning Recovery · 10–15 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Walk</div></div><div class="ex-sets">5 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Down Dog to Cobra</div></div><div class="ex-sets">8 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">3–5 min</div></div>
+
+        <div class="section-label">Later</div>
+        <div class="exercise-row"><div><div class="ex-name">Option A · Full Rest</div></div><div class="ex-sets">Best default</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Option B · Easy Walk</div></div><div class="ex-sets">20–30 min</div></div>
+
+        <div class="tip-box rest">💡 Sunday should leave you feeling better, not more tired. The win is recovery and staying ready for Monday travel.</div>
+      </div>
+
+      <div class="foot-box">
+        <div class="section-label">Plantar Fasciitis — Travel Version</div>
+        <div class="foot-item">· Long stretch, easy walking, no hero workouts</div>
+      </div>
+    </div>
+
+    <p class="footer-note">Travel page uses the same shared styles and nav as the rest of the app.</p>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function showTravelDay(id, btn) {
+      ['mon','tue','wed','thu','fri','sat','sun'].forEach(day => {
+        document.getElementById(day).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
+</body>
+</html>
