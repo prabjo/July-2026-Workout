@@ -1,0 +1,411 @@
+:root{
+  --bg:#0f0f0f;
+  --panel:#1a1a1a;
+  --panel-2:#111;
+  --line:#2a2a2a;
+  --text:#f2f2f2;
+  --muted:#8e8e8e;
+  --lime:#e8ff47;
+  --blue:#4fc3f7;
+  --purple:#b388ff;
+  --gray:#444;
+  --gold:#a89a00;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  padding:16px;
+}
+a{color:inherit}
+.page-wrap{max-width:920px;margin:0 auto}
+.hero{margin-bottom:18px}
+.hero h1{
+  font-size:22px;
+  font-weight:800;
+  text-align:center;
+  margin-bottom:6px;
+}
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:18px;
+}
+
+/* shared nav */
+.app-nav{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  margin-bottom:18px;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.app-nav::-webkit-scrollbar{display:none}
+.app-link{
+  flex-shrink:0;
+  text-decoration:none;
+  padding:10px 14px;
+  border-radius:999px;
+  background:#1c1c1c;
+  color:#bbb;
+  font-size:13px;
+  font-weight:700;
+  border:1px solid var(--line);
+}
+.app-link.active{
+  background:var(--lime);
+  color:#000;
+  border-color:var(--lime);
+}
+
+/* cards */
+.card{
+  background:var(--panel);
+  border:1px solid #202020;
+  border-radius:16px;
+  padding:18px;
+  margin-bottom:12px;
+}
+.card-header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:14px;
+}
+.card h2{
+  font-size:18px;
+  font-weight:800;
+}
+.card h3{
+  font-size:16px;
+  font-weight:800;
+  margin-bottom:10px;
+}
+.muted{color:var(--muted);font-size:13px}
+.section-label{
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:1.4px;
+  color:#666;
+  text-transform:uppercase;
+  margin:16px 0 8px;
+}
+
+/* chips / pills */
+.badge{
+  font-size:11px;
+  font-weight:800;
+  padding:3px 8px;
+  border-radius:10px;
+  background:var(--lime);
+  color:#000;
+}
+.badge.run{background:var(--blue)}
+.badge.rest{background:var(--gray);color:#ddd}
+.badge.pull{background:var(--purple);color:#000}
+
+.day-tabs,
+.pill-row,
+.preset-row,
+.sound-row,
+.link-row,
+.btn-row{
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding-bottom:4px;
+  scrollbar-width:none;
+}
+.day-tabs::-webkit-scrollbar,
+.pill-row::-webkit-scrollbar,
+.preset-row::-webkit-scrollbar,
+.sound-row::-webkit-scrollbar,
+.link-row::-webkit-scrollbar,
+.btn-row::-webkit-scrollbar{display:none}
+
+.tab,
+.pill,
+.preset,
+.sound-btn,
+.quick-btn{
+  flex-shrink:0;
+  border:none;
+  cursor:pointer;
+  padding:9px 14px;
+  border-radius:999px;
+  background:#222;
+  color:#999;
+  font-size:13px;
+  font-weight:700;
+}
+.tab.active,
+.pill.active{
+  background:var(--lime);
+  color:#000;
+}
+.tab.run{border:1px solid var(--blue)}
+.tab.active.run{background:var(--blue);color:#000}
+.tab.rest{border:1px solid #555}
+.tab.active.rest{background:#444;color:#fff}
+.preset.active,
+.sound-btn.active{background:var(--blue);color:#000}
+.quick-btn{background:#262626;color:#ddd;border:1px solid var(--line)}
+
+/* workout rows */
+.exercise-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+}
+.exercise-row:last-child{border-bottom:none}
+.ex-name{font-size:15px;font-weight:700}
+.ex-note{font-size:12px;color:var(--muted);margin-top:2px}
+.ex-sets{
+  font-size:13px;
+  color:var(--lime);
+  font-weight:800;
+  white-space:nowrap;
+}
+.ex-sets.run{color:var(--blue)}
+.ex-sets.pull{color:var(--purple)}
+.tip-box{
+  background:var(--panel-2);
+  border-left:3px solid var(--lime);
+  padding:10px 14px;
+  border-radius:0 8px 8px 0;
+  margin-top:14px;
+  font-size:13px;
+  color:#aaa;
+  line-height:1.5;
+}
+.tip-box.run{border-left-color:var(--blue)}
+.tip-box.rest{border-left-color:#555}
+.tip-box.pull{border-left-color:var(--purple)}
+
+.foot-box{
+  background:#1e1a00;
+  border:1px solid rgba(232,255,71,.12);
+  border-radius:12px;
+  padding:12px 14px;
+  margin-bottom:12px;
+}
+.foot-box .section-label{color:var(--gold);margin-top:0}
+.foot-item{font-size:13px;color:#ccc;padding:4px 0}
+.hidden{display:none}
+
+/* nutrition */
+.goal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.goal-box{
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px;
+}
+.goal-num{
+  color:var(--lime);
+  font-size:22px;
+  font-weight:900;
+  margin-bottom:4px;
+}
+.goal-sub{font-size:12px;color:#aaa}
+
+.food-row{
+  display:grid;
+  grid-template-columns:1.4fr .9fr .6fr .6fr .6fr .8fr;
+  gap:8px;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
+}
+.food-row:last-child{border-bottom:none}
+.food-row.header{
+  color:#888;
+  font-size:11px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  padding-top:0;
+}
+.name{font-weight:800}
+.subnote{color:var(--muted);font-size:12px;margin-top:2px}
+.tag-yes{color:var(--blue);font-weight:800}
+.tag-no{color:#888;font-weight:800}
+.simple-list{list-style:none}
+.simple-list li{
+  padding:10px 0;
+  border-bottom:1px solid var(--line);
+  color:#ddd;
+}
+.simple-list li:last-child{border-bottom:none}
+.macro-chip-wrap{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+.macro-chip{
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  color:#ddd;
+}
+
+/* timers */
+.grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.input-box{
+  background:var(--panel-2);
+  border-radius:14px;
+  padding:12px;
+  border:1px solid var(--line);
+}
+.input-box label{
+  display:block;
+  font-size:11px;
+  color:#777;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-weight:800;
+}
+.input-box input,
+.input-box select{
+  width:100%;
+  background:#1b1b1b;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:10px;
+  padding:12px;
+  font-size:18px;
+  font-weight:800;
+}
+.timer-display{text-align:center}
+.phase{
+  font-size:13px;
+  color:#999;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  margin-bottom:10px;
+}
+.time-lg{
+  font-size:64px;
+  font-weight:900;
+  line-height:1;
+  margin-bottom:8px;
+}
+.round{
+  font-size:16px;
+  color:#bbb;
+  margin-bottom:12px;
+}
+.progress-wrap{
+  width:100%;
+  height:12px;
+  background:var(--panel-2);
+  border-radius:999px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:12px;
+}
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:var(--lime);
+  transition:width .15s linear;
+}
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.stat{
+  background:var(--panel-2);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px;
+  text-align:center;
+}
+.stat-top{
+  color:#888;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+.stat-val{
+  font-size:18px;
+  font-weight:900;
+}
+.btn{
+  flex:1;
+  min-width:110px;
+  border:none;
+  border-radius:14px;
+  padding:14px 12px;
+  font-size:15px;
+  font-weight:900;
+  cursor:pointer;
+}
+.btn.start{background:var(--lime);color:#000}
+.btn.pause{background:var(--blue);color:#000}
+.btn.reset{background:#2a2a2a;color:#fff}
+.btn.skip{background:var(--purple);color:#000}
+
+/* meditation ring */
+.ring{
+  width:240px;
+  height:240px;
+  border-radius:50%;
+  background:conic-gradient(var(--blue) var(--progress,0%), rgba(255,255,255,.08) 0);
+  display:grid;
+  place-items:center;
+  margin:6px auto 12px;
+}
+.ring-inner{
+  width:202px;
+  height:202px;
+  border-radius:50%;
+  background:radial-gradient(circle at top, #1c2330 0%, #111 70%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:16px;
+}
+.note{font-size:13px;color:#aaa;line-height:1.5}
+
+/* footer */
+.footer-note{
+  text-align:center;
+  color:#6d6d6d;
+  font-size:12px;
+  margin-top:14px;
+}
+
+@media (max-width:720px){
+  .food-row{grid-template-columns:1fr;gap:4px}
+  .food-row.header{display:none}
+}
+@media (max-width:560px){
+  .grid-2,.goal-grid{grid-template-columns:1fr 1fr}
+  .time-lg{font-size:54px}
+  .ring{width:220px;height:220px}
+  .ring-inner{width:186px;height:186px}
+}
