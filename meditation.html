@@ -1,684 +1,454 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Meditation</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background: radial-gradient(circle at top, #1a2330 0%, #0f0f0f 55%, #090909 100%);
-    color: #f4f4f4;
-    padding: 16px;
-    min-height: 100vh;
-  }
-
-  .app-nav {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-bottom: 18px;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .app-nav::-webkit-scrollbar { display: none; }
-  .app-link {
-    flex-shrink: 0;
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.06);
-    color: #bbb;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1px solid rgba(255,255,255,0.08);
-  }
-  .app-link.active {
-    background: #e8ff47;
-    color: #000;
-    border-color: #e8ff47;
-  }
-
-  h1 {
-    text-align: center;
-    font-size: 22px;
-    margin-bottom: 6px;
-    letter-spacing: 0.2px;
-  }
-  .subtitle {
-    text-align: center;
-    color: #9aa4af;
-    font-size: 13px;
-    margin-bottom: 20px;
-  }
-
-  .card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 18px;
-    margin-bottom: 14px;
-    backdrop-filter: blur(10px);
-  }
-
-  .preset-row, .sound-row, .link-row {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .preset-row::-webkit-scrollbar,
-  .sound-row::-webkit-scrollbar,
-  .link-row::-webkit-scrollbar { display: none; }
-
-  .preset, .sound-btn, .quick-btn {
-    flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.08);
-    background: rgba(255,255,255,0.06);
-    color: #ddd;
-    border-radius: 999px;
-    padding: 10px 12px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .preset.active, .sound-btn.active {
-    background: #4fc3f7;
-    color: #000;
-    border-color: #4fc3f7;
-  }
-
-  .timer-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .ring {
-    width: 240px;
-    height: 240px;
-    border-radius: 50%;
-    background:
-      conic-gradient(#4fc3f7 var(--progress, 0%), rgba(255,255,255,0.08) 0%);
-    display: grid;
-    place-items: center;
-    margin: 4px auto 6px;
-    box-shadow: 0 10px 40px rgba(79,195,247,0.12);
-  }
-  .ring-inner {
-    width: 202px;
-    height: 202px;
-    border-radius: 50%;
-    background: radial-gradient(circle at top, #1c2330 0%, #111 70%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 16px;
-  }
-  .time {
-    font-size: 48px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 1px;
-  }
-  .phase {
-    font-size: 12px;
-    color: #97a2ad;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-top: 10px;
-  }
-  .mini {
-    font-size: 12px;
-    color: #7f8a96;
-    margin-top: 4px;
-  }
-
-  .btn-row {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-  .btn {
-    border: none;
-    border-radius: 16px;
-    padding: 14px 12px;
-    font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-  }
-  .btn.start { background: #e8ff47; color: #000; }
-  .btn.pause { background: #4fc3f7; color: #000; }
-  .btn.reset { background: #2a2a2a; color: #fff; }
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    color: #6f7a85;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .controls-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .input-box {
-    background: rgba(255,255,255,0.04);
-    border-radius: 14px;
-    padding: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
-  }
-  .input-box label {
-    display: block;
-    font-size: 11px;
-    color: #7f8a96;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-  }
-  .input-box select, .input-box input {
-    width: 100%;
-    background: #151515;
-    color: #fff;
-    border: 1px solid #2f2f2f;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 16px;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 6px;
-  }
-  .stat {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 12px;
-    text-align: center;
-  }
-  .stat-top {
-    color: #7f8a96;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 6px;
-  }
-  .stat-val {
-    font-size: 18px;
-    font-weight: 800;
-  }
-
-  .quick-links input {
-    width: 100%;
-    background: #151515;
-    color: #fff;
-    border: 1px solid #2f2f2f;
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  .note {
-    color: #9aa4af;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 520px) {
-    .ring { width: 220px; height: 220px; }
-    .ring-inner { width: 186px; height: 186px; }
-    .time { font-size: 42px; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meditation</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="meditation">
+  <div class="page-wrap">
+    <div id="app-nav"></div>
 
-<div class="app-nav">
-  <a class="app-link" href="index.html">Workout</a>
-  <a class="app-link" href="nutrition.html">Nutrition</a>
-  <a class="app-link" href="hiit-timer.html">HIIT Timer</a>
-  <a class="app-link active" href="meditation.html">Meditation</a>
-</div>
+    <header class="hero">
+      <h1>Meditation</h1>
+      <p class="subtitle">Simple timer · ambient sounds · soft chime every 3 minutes</p>
+    </header>
 
-<h1>Meditation</h1>
-<p class="subtitle">Simple timer · ambient sounds · soft chime every 3 minutes</p>
-
-<div class="card">
-  <div class="section-label">Session length</div>
-  <div class="preset-row">
-    <button class="preset active" onclick="setMinutes(10, this)">10 min</button>
-    <button class="preset" onclick="setMinutes(15, this)">15 min</button>
-    <button class="preset" onclick="setMinutes(20, this)">20 min</button>
-    <button class="preset" onclick="setMinutes(30, this)">30 min</button>
-  </div>
-</div>
-
-<div class="card">
-  <div class="timer-wrap">
-    <div class="ring" id="ring">
-      <div class="ring-inner">
-        <div class="time" id="timeDisplay">10:00</div>
-        <div class="phase" id="phaseDisplay">Ready</div>
-        <div class="mini" id="soundDisplay">Sound: Ocean</div>
+    <div class="card">
+      <div class="section-label">Session length</div>
+      <div class="preset-row">
+        <button class="preset active" onclick="setMinutes(10, this)">10 min</button>
+        <button class="preset" onclick="setMinutes(15, this)">15 min</button>
+        <button class="preset" onclick="setMinutes(20, this)">20 min</button>
+        <button class="preset" onclick="setMinutes(30, this)">30 min</button>
       </div>
     </div>
 
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-top">Length</div>
-        <div class="stat-val" id="lengthStat">10:00</div>
+    <div class="card">
+      <div class="ring" id="ring">
+        <div class="ring-inner">
+          <div class="time-lg" id="timeDisplay">10:00</div>
+          <div class="phase" id="phaseDisplay">Ready</div>
+          <div class="muted" id="soundDisplay">Sound: Ocean</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-top">Chime</div>
-        <div class="stat-val" id="chimeStat">3:00</div>
+
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-top">Length</div>
+          <div class="stat-val" id="lengthStat">10:00</div>
+        </div>
+        <div class="stat">
+          <div class="stat-top">Chime</div>
+          <div class="stat-val" id="chimeStat">3:00</div>
+        </div>
+        <div class="stat">
+          <div class="stat-top">Status</div>
+          <div class="stat-val" id="statusStat">Idle</div>
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-top">Status</div>
-        <div class="stat-val" id="statusStat">Idle</div>
+    </div>
+
+    <div class="card">
+      <div class="btn-row">
+        <button class="btn start" onclick="startMeditation()">Start</button>
+        <button class="btn pause" onclick="pauseMeditation()">Pause</button>
+        <button class="btn reset" onclick="resetMeditation()">Reset</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Ambient sound</div>
+      <div class="sound-row">
+        <button class="sound-btn active" onclick="setScene('ocean', this)">Ocean</button>
+        <button class="sound-btn" onclick="setScene('wind', this)">Wind</button>
+        <button class="sound-btn" onclick="setScene('forest', this)">Forest</button>
+        <button class="sound-btn" onclick="setScene('birds', this)">Birds</button>
+        <button class="sound-btn" onclick="setScene('jungle', this)">Jungle</button>
+        <button class="sound-btn" onclick="setScene('none', this)">Silent</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="grid-2">
+        <div class="input-box">
+          <label for="chimeEvery">Chime every</label>
+          <select id="chimeEvery" onchange="updateChime()">
+            <option value="180" selected>3 minutes</option>
+            <option value="300">5 minutes</option>
+            <option value="0">Off</option>
+          </select>
+        </div>
+        <div class="input-box">
+          <label for="soundVolume">Sound volume</label>
+          <input id="soundVolume" type="range" min="0" max="100" value="35" oninput="setVolume(this.value)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-label">Quick links</div>
+      <div class="input-box" style="margin-bottom:10px;">
+        <label for="spotifyUrl">Spotify URL</label>
+        <input id="spotifyUrl" type="text" placeholder="Paste playlist or track URL" />
+      </div>
+      <div class="link-row" style="margin-bottom:10px;">
+        <button class="quick-btn" onclick="openSavedLink('spotifyUrl')">Open Spotify</button>
+        <button class="quick-btn" onclick="saveLinks()">Save Links</button>
+      </div>
+
+      <div class="input-box" style="margin-bottom:10px;">
+        <label for="meditoUrl">Medito URL</label>
+        <input id="meditoUrl" type="text" placeholder="Paste your Medito app or web URL" />
+      </div>
+      <div class="input-box" style="margin-bottom:10px;">
+        <label for="headspaceUrl">Headspace URL</label>
+        <input id="headspaceUrl" type="text" placeholder="Paste your Headspace app or web URL" />
+      </div>
+      <div class="input-box" style="margin-bottom:10px;">
+        <label for="insightUrl">Insight Timer URL</label>
+        <input id="insightUrl" type="text" placeholder="Paste your Insight Timer app or web URL" />
+      </div>
+
+      <div class="link-row">
+        <button class="quick-btn" onclick="openSavedLink('meditoUrl')">Open Medito</button>
+        <button class="quick-btn" onclick="openSavedLink('headspaceUrl')">Open Headspace</button>
+        <button class="quick-btn" onclick="openSavedLink('insightUrl')">Open Insight</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="note">
+        This uses built-in generated ambient sound, so you do not need separate audio files. Paste your own Spotify or app links once and they will stay saved in this browser.
       </div>
     </div>
   </div>
-</div>
 
-<div class="card">
-  <div class="btn-row">
-    <button class="btn start" onclick="startMeditation()">Start</button>
-    <button class="btn pause" onclick="pauseMeditation()">Pause</button>
-    <button class="btn reset" onclick="resetMeditation()">Reset</button>
-  </div>
-</div>
+  <script src="nav.js"></script>
+  <script>
+    let totalSeconds = 600;
+    let remainingSeconds = 600;
+    let timer = null;
+    let endTime = null;
+    let running = false;
+    let chimeEvery = 180;
+    let nextChimeMark = 180;
+    let scene = 'ocean';
+    let wakeLock = null;
 
-<div class="card">
-  <div class="section-label">Ambient sound</div>
-  <div class="sound-row">
-    <button class="sound-btn active" onclick="setScene('ocean', this)">Ocean</button>
-    <button class="sound-btn" onclick="setScene('wind', this)">Wind</button>
-    <button class="sound-btn" onclick="setScene('forest', this)">Forest</button>
-    <button class="sound-btn" onclick="setScene('birds', this)">Birds</button>
-    <button class="sound-btn" onclick="setScene('jungle', this)">Jungle</button>
-    <button class="sound-btn" onclick="setScene('none', this)">Silent</button>
-  </div>
-</div>
+    const timeDisplay = document.getElementById('timeDisplay');
+    const phaseDisplay = document.getElementById('phaseDisplay');
+    const soundDisplay = document.getElementById('soundDisplay');
+    const lengthStat = document.getElementById('lengthStat');
+    const chimeStat = document.getElementById('chimeStat');
+    const statusStat = document.getElementById('statusStat');
+    const ring = document.getElementById('ring');
 
-<div class="card">
-  <div class="section-label">Options</div>
-  <div class="controls-grid">
-    <div class="input-box">
-      <label for="chimeEvery">Chime every</label>
-      <select id="chimeEvery" onchange="updateChime()">
-        <option value="180" selected>3 minutes</option>
-        <option value="300">5 minutes</option>
-        <option value="0">Off</option>
-      </select>
-    </div>
-    <div class="input-box">
-      <label for="soundVolume">Sound volume</label>
-      <input id="soundVolume" type="range" min="0" max="100" value="35" oninput="setVolume(this.value)">
-    </div>
-  </div>
-</div>
+    let audioCtx = null;
+    let masterGain = null;
+    let noiseSource = null;
+    let noiseFilter = null;
+    let noiseGain = null;
+    let modOsc = null;
+    let modGain = null;
+    let birdTimers = [];
 
-<div class="card quick-links">
-  <div class="section-label">Quick links</div>
-  <input id="spotifyUrl" placeholder="Paste Spotify playlist/track URL here (optional)">
-  <div class="link-row" style="margin-bottom:10px;">
-    <button class="quick-btn" onclick="openSavedLink('spotifyUrl')">Open Spotify</button>
-    <button class="quick-btn" onclick="saveLinks()">Save Links</button>
-  </div>
-
-  <input id="meditoUrl" placeholder="Paste your Medito link or app URL">
-  <input id="headspaceUrl" placeholder="Paste your Headspace link or app URL">
-  <input id="insightUrl" placeholder="Paste your Insight Timer link or app URL">
-  <div class="link-row">
-    <button class="quick-btn" onclick="openSavedLink('meditoUrl')">Open Medito</button>
-    <button class="quick-btn" onclick="openSavedLink('headspaceUrl')">Open Headspace</button>
-    <button class="quick-btn" onclick="openSavedLink('insightUrl')">Open Insight</button>
-  </div>
-</div>
-
-<div class="card">
-  <div class="note">
-    Tip: this page uses built-in generated ambient sound, so it works without adding audio files. If you want Spotify or meditation app launching, paste your own links above once and tap Save Links.
-  </div>
-</div>
-
-<script>
-let totalSeconds = 600;
-let remainingSeconds = 600;
-let timer = null;
-let endTime = null;
-let running = false;
-let chimeEvery = 180;
-let nextChimeMark = 180;
-let scene = 'ocean';
-let wakeLock = null;
-
-const timeDisplay = document.getElementById('timeDisplay');
-const phaseDisplay = document.getElementById('phaseDisplay');
-const soundDisplay = document.getElementById('soundDisplay');
-const lengthStat = document.getElementById('lengthStat');
-const chimeStat = document.getElementById('chimeStat');
-const statusStat = document.getElementById('statusStat');
-const ring = document.getElementById('ring');
-
-let audioCtx = null;
-let masterGain = null;
-let noiseSource = null;
-let noiseFilter = null;
-let noiseGain = null;
-let modOsc = null;
-let modGain = null;
-let birdTimers = [];
-
-function fmt(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-}
-
-function render() {
-  timeDisplay.textContent = fmt(remainingSeconds);
-  lengthStat.textContent = fmt(totalSeconds);
-  chimeStat.textContent = chimeEvery ? fmt(chimeEvery) : 'Off';
-  statusStat.textContent = running ? 'Live' : 'Idle';
-  phaseDisplay.textContent = running ? 'Meditating' : 'Ready';
-  soundDisplay.textContent = 'Sound: ' + scene.charAt(0).toUpperCase() + scene.slice(1);
-  const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
-  ring.style.setProperty('--progress', progress + '%');
-}
-
-function setMinutes(mins, btn) {
-  totalSeconds = mins * 60;
-  remainingSeconds = totalSeconds;
-  document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  resetMeditation();
-}
-
-function updateChime() {
-  chimeEvery = parseInt(document.getElementById('chimeEvery').value, 10);
-  nextChimeMark = chimeEvery;
-  render();
-}
-
-function setScene(name, btn) {
-  scene = name;
-  document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  stopAmbient();
-  if (running && scene !== 'none') startAmbient();
-  render();
-}
-
-function setVolume(value) {
-  if (masterGain) masterGain.gain.value = Number(value) / 100 * 0.18;
-}
-
-function beep(freq = 880, duration = 0.12, vol = 0.05) {
-  ensureAudio();
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.frequency.value = freq;
-  osc.type = 'sine';
-  gain.gain.value = vol;
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + duration);
-}
-
-function tripleChime() {
-  beep(880, 0.12, 0.05);
-  setTimeout(() => beep(1046, 0.12, 0.05), 180);
-  setTimeout(() => beep(1318, 0.16, 0.05), 360);
-}
-
-function ensureAudio() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  if (!masterGain) {
-    masterGain = audioCtx.createGain();
-    masterGain.gain.value = Number(document.getElementById('soundVolume').value) / 100 * 0.18;
-    masterGain.connect(audioCtx.destination);
-  }
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-}
-
-function createNoiseBuffer() {
-  const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
-  const data = buffer.getChannelData(0);
-  let last = 0;
-  for (let i = 0; i < data.length; i++) {
-    const white = Math.random() * 2 - 1;
-    last = (last + (0.02 * white)) / 1.02;
-    data[i] = last * 3.5;
-  }
-  return buffer;
-}
-
-function clearBirdTimers() {
-  birdTimers.forEach(t => clearTimeout(t));
-  birdTimers = [];
-}
-
-function birdChirp(minDelay, maxDelay, baseFreq1, baseFreq2, gainLevel) {
-  const delay = Math.random() * (maxDelay - minDelay) + minDelay;
-  const t = setTimeout(() => {
-    if (!running || scene === 'none') return;
-    ensureAudio();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(baseFreq1 + Math.random() * 200, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(baseFreq2 + Math.random() * 250, audioCtx.currentTime + 0.12);
-    gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(gainLevel, audioCtx.currentTime + 0.01);
-    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.18);
-    osc.connect(gain);
-    gain.connect(masterGain);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.2);
-    birdChirp(minDelay, maxDelay, baseFreq1, baseFreq2, gainLevel);
-  }, delay);
-  birdTimers.push(t);
-}
-
-function stopAmbient() {
-  clearBirdTimers();
-  try { if (noiseSource) noiseSource.stop(); } catch(e) {}
-  try { if (modOsc) modOsc.stop(); } catch(e) {}
-  noiseSource = null;
-  noiseFilter = null;
-  noiseGain = null;
-  modOsc = null;
-  modGain = null;
-}
-
-function startAmbient() {
-  if (scene === 'none') return;
-  ensureAudio();
-
-  noiseSource = audioCtx.createBufferSource();
-  noiseSource.buffer = createNoiseBuffer();
-  noiseSource.loop = true;
-
-  noiseFilter = audioCtx.createBiquadFilter();
-  noiseGain = audioCtx.createGain();
-  modOsc = audioCtx.createOscillator();
-  modGain = audioCtx.createGain();
-
-  if (scene === 'ocean') {
-    noiseFilter.type = 'lowpass';
-    noiseFilter.frequency.value = 650;
-    noiseGain.gain.value = 0.42;
-    modOsc.frequency.value = 0.08;
-    modGain.gain.value = 0.18;
-  } else if (scene === 'wind') {
-    noiseFilter.type = 'bandpass';
-    noiseFilter.frequency.value = 350;
-    noiseFilter.Q.value = 0.8;
-    noiseGain.gain.value = 0.28;
-    modOsc.frequency.value = 0.05;
-    modGain.gain.value = 0.16;
-  } else if (scene === 'forest') {
-    noiseFilter.type = 'lowpass';
-    noiseFilter.frequency.value = 500;
-    noiseGain.gain.value = 0.18;
-    modOsc.frequency.value = 0.06;
-    modGain.gain.value = 0.08;
-  } else if (scene === 'birds') {
-    noiseFilter.type = 'lowpass';
-    noiseFilter.frequency.value = 300;
-    noiseGain.gain.value = 0.08;
-    modOsc.frequency.value = 0.03;
-    modGain.gain.value = 0.04;
-  } else if (scene === 'jungle') {
-    noiseFilter.type = 'bandpass';
-    noiseFilter.frequency.value = 420;
-    noiseFilter.Q.value = 0.9;
-    noiseGain.gain.value = 0.2;
-    modOsc.frequency.value = 0.07;
-    modGain.gain.value = 0.1;
-  }
-
-  modOsc.connect(modGain);
-  modGain.connect(noiseGain.gain);
-  noiseSource.connect(noiseFilter);
-  noiseFilter.connect(noiseGain);
-  noiseGain.connect(masterGain);
-
-  noiseSource.start();
-  modOsc.start();
-
-  if (scene === 'forest') {
-    birdChirp(2500, 7000, 1800, 2600, 0.05);
-    birdChirp(4000, 9000, 2200, 3000, 0.04);
-  }
-  if (scene === 'birds') {
-    birdChirp(1800, 4500, 2400, 3300, 0.07);
-    birdChirp(2500, 5200, 2000, 2800, 0.06);
-  }
-  if (scene === 'jungle') {
-    birdChirp(1400, 3200, 900, 1500, 0.05);
-    birdChirp(2200, 4200, 1500, 2300, 0.04);
-    birdChirp(1200, 2800, 700, 1100, 0.03);
-  }
-}
-
-async function requestWakeLock() {
-  try {
-    if ('wakeLock' in navigator && !wakeLock) {
-      wakeLock = await navigator.wakeLock.request('screen');
-    }
-  } catch (e) {}
-}
-
-async function releaseWakeLock() {
-  try {
-    if (wakeLock) {
-      await wakeLock.release();
-      wakeLock = null;
-    }
-  } catch (e) {}
-}
-
-function startMeditation() {
-  if (running) return;
-  ensureAudio();
-  running = true;
-  nextChimeMark = chimeEvery;
-  endTime = Date.now() + remainingSeconds * 1000;
-  if (scene !== 'none') startAmbient();
-  requestWakeLock();
-
-  timer = setInterval(() => {
-    remainingSeconds = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-
-    const elapsed = totalSeconds - remainingSeconds;
-    if (chimeEvery > 0 && elapsed >= nextChimeMark && remainingSeconds > 0) {
-      tripleChime();
-      nextChimeMark += chimeEvery;
+    function fmt(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
     }
 
-    render();
+    function renderMeditation() {
+      timeDisplay.textContent = fmt(remainingSeconds);
+      lengthStat.textContent = fmt(totalSeconds);
+      chimeStat.textContent = chimeEvery ? fmt(chimeEvery) : 'Off';
+      statusStat.textContent = running ? 'Live' : 'Idle';
+      phaseDisplay.textContent = running ? 'Meditating' : 'Ready';
+      soundDisplay.textContent = 'Sound: ' + scene.charAt(0).toUpperCase() + scene.slice(1);
+      const progress = ((totalSeconds - remainingSeconds) / totalSeconds) * 100;
+      ring.style.setProperty('--progress', progress + '%');
+    }
 
-    if (remainingSeconds <= 0) {
+    function setMinutes(mins, btn) {
+      totalSeconds = mins * 60;
+      remainingSeconds = totalSeconds;
+      document.querySelectorAll('.preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      resetMeditation();
+    }
+
+    function updateChime() {
+      chimeEvery = parseInt(document.getElementById('chimeEvery').value, 10);
+      nextChimeMark = chimeEvery;
+      renderMeditation();
+    }
+
+    function setScene(name, btn) {
+      scene = name;
+      document.querySelectorAll('.sound-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      stopAmbient();
+      if (running && scene !== 'none') startAmbient();
+      renderMeditation();
+    }
+
+    function setVolume(value) {
+      if (masterGain) masterGain.gain.value = Number(value) / 100 * 0.18;
+    }
+
+    function ensureAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (!masterGain) {
+        masterGain = audioCtx.createGain();
+        masterGain.gain.value = Number(document.getElementById('soundVolume').value) / 100 * 0.18;
+        masterGain.connect(audioCtx.destination);
+      }
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+    }
+
+    function beep(freq = 880, duration = 0.12, vol = 0.05) {
+      ensureAudio();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.frequency.value = freq;
+      gain.gain.value = vol;
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+
+    function tripleChime() {
+      beep(880, 0.12, 0.05);
+      setTimeout(() => beep(1046, 0.12, 0.05), 180);
+      setTimeout(() => beep(1318, 0.16, 0.05), 360);
+    }
+
+    function createNoiseBuffer() {
+      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 2, audioCtx.sampleRate);
+      const data = buffer.getChannelData(0);
+      let last = 0;
+      for (let i = 0; i < data.length; i++) {
+        const white = Math.random() * 2 - 1;
+        last = (last + (0.02 * white)) / 1.02;
+        data[i] = last * 3.5;
+      }
+      return buffer;
+    }
+
+    function clearBirdTimers() {
+      birdTimers.forEach(t => clearTimeout(t));
+      birdTimers = [];
+    }
+
+    function birdChirp(minDelay, maxDelay, baseFreq1, baseFreq2, gainLevel) {
+      const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+      const t = setTimeout(() => {
+        if (!running || scene === 'none') return;
+        ensureAudio();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(baseFreq1 + Math.random() * 200, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq2 + Math.random() * 250, audioCtx.currentTime + 0.12);
+        gain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(gainLevel, audioCtx.currentTime + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.18);
+        osc.connect(gain);
+        gain.connect(masterGain);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+        birdChirp(minDelay, maxDelay, baseFreq1, baseFreq2, gainLevel);
+      }, delay);
+      birdTimers.push(t);
+    }
+
+    function stopAmbient() {
+      clearBirdTimers();
+      try { if (noiseSource) noiseSource.stop(); } catch (e) {}
+      try { if (modOsc) modOsc.stop(); } catch (e) {}
+      noiseSource = null;
+      noiseFilter = null;
+      noiseGain = null;
+      modOsc = null;
+      modGain = null;
+    }
+
+    function startAmbient() {
+      if (scene === 'none') return;
+      ensureAudio();
+
+      noiseSource = audioCtx.createBufferSource();
+      noiseSource.buffer = createNoiseBuffer();
+      noiseSource.loop = true;
+
+      noiseFilter = audioCtx.createBiquadFilter();
+      noiseGain = audioCtx.createGain();
+      modOsc = audioCtx.createOscillator();
+      modGain = audioCtx.createGain();
+
+      if (scene === 'ocean') {
+        noiseFilter.type = 'lowpass';
+        noiseFilter.frequency.value = 650;
+        noiseGain.gain.value = 0.42;
+        modOsc.frequency.value = 0.08;
+        modGain.gain.value = 0.18;
+      } else if (scene === 'wind') {
+        noiseFilter.type = 'bandpass';
+        noiseFilter.frequency.value = 350;
+        noiseFilter.Q.value = 0.8;
+        noiseGain.gain.value = 0.28;
+        modOsc.frequency.value = 0.05;
+        modGain.gain.value = 0.16;
+      } else if (scene === 'forest') {
+        noiseFilter.type = 'lowpass';
+        noiseFilter.frequency.value = 500;
+        noiseGain.gain.value = 0.18;
+        modOsc.frequency.value = 0.06;
+        modGain.gain.value = 0.08;
+      } else if (scene === 'birds') {
+        noiseFilter.type = 'lowpass';
+        noiseFilter.frequency.value = 300;
+        noiseGain.gain.value = 0.08;
+        modOsc.frequency.value = 0.03;
+        modGain.gain.value = 0.04;
+      } else if (scene === 'jungle') {
+        noiseFilter.type = 'bandpass';
+        noiseFilter.frequency.value = 420;
+        noiseFilter.Q.value = 0.9;
+        noiseGain.gain.value = 0.2;
+        modOsc.frequency.value = 0.07;
+        modGain.gain.value = 0.1;
+      }
+
+      modOsc.connect(modGain);
+      modGain.connect(noiseGain.gain);
+      noiseSource.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(masterGain);
+
+      noiseSource.start();
+      modOsc.start();
+
+      if (scene === 'forest') {
+        birdChirp(2500, 7000, 1800, 2600, 0.05);
+        birdChirp(4000, 9000, 2200, 3000, 0.04);
+      }
+      if (scene === 'birds') {
+        birdChirp(1800, 4500, 2400, 3300, 0.07);
+        birdChirp(2500, 5200, 2000, 2800, 0.06);
+      }
+      if (scene === 'jungle') {
+        birdChirp(1400, 3200, 900, 1500, 0.05);
+        birdChirp(2200, 4200, 1500, 2300, 0.04);
+        birdChirp(1200, 2800, 700, 1100, 0.03);
+      }
+    }
+
+    async function requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator && !wakeLock) {
+          wakeLock = await navigator.wakeLock.request('screen');
+        }
+      } catch (e) {}
+    }
+
+    async function releaseWakeLock() {
+      try {
+        if (wakeLock) {
+          await wakeLock.release();
+          wakeLock = null;
+        }
+      } catch (e) {}
+    }
+
+    function startMeditation() {
+      if (running) return;
+      ensureAudio();
+      running = true;
+      nextChimeMark = chimeEvery;
+      endTime = Date.now() + remainingSeconds * 1000;
+      if (scene !== 'none') startAmbient();
+      requestWakeLock();
+
+      timer = setInterval(() => {
+        remainingSeconds = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+        const elapsed = totalSeconds - remainingSeconds;
+
+        if (chimeEvery > 0 && elapsed >= nextChimeMark && remainingSeconds > 0) {
+          tripleChime();
+          nextChimeMark += chimeEvery;
+        }
+
+        renderMeditation();
+
+        if (remainingSeconds <= 0) {
+          clearInterval(timer);
+          timer = null;
+          running = false;
+          tripleChime();
+          setTimeout(tripleChime, 700);
+          stopAmbient();
+          releaseWakeLock();
+          renderMeditation();
+        }
+      }, 250);
+
+      renderMeditation();
+    }
+
+    function pauseMeditation() {
+      if (!running) return;
+      clearInterval(timer);
+      timer = null;
+      remainingSeconds = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
+      running = false;
+      stopAmbient();
+      releaseWakeLock();
+      renderMeditation();
+    }
+
+    function resetMeditation() {
       clearInterval(timer);
       timer = null;
       running = false;
-      tripleChime();
-      setTimeout(tripleChime, 700);
       stopAmbient();
       releaseWakeLock();
-      render();
+      remainingSeconds = totalSeconds;
+      nextChimeMark = chimeEvery;
+      renderMeditation();
     }
-  }, 250);
 
-  render();
-}
+    function saveLinks() {
+      ['spotifyUrl','meditoUrl','headspaceUrl','insightUrl'].forEach(id => {
+        localStorage.setItem(id, document.getElementById(id).value.trim());
+      });
+    }
 
-function pauseMeditation() {
-  if (!running) return;
-  clearInterval(timer);
-  timer = null;
-  remainingSeconds = Math.max(0, Math.ceil((endTime - Date.now()) / 1000));
-  running = false;
-  stopAmbient();
-  releaseWakeLock();
-  render();
-}
+    function loadLinks() {
+      ['spotifyUrl','meditoUrl','headspaceUrl','insightUrl'].forEach(id => {
+        const saved = localStorage.getItem(id);
+        if (saved) document.getElementById(id).value = saved;
+      });
+    }
 
-function resetMeditation() {
-  clearInterval(timer);
-  timer = null;
-  running = false;
-  stopAmbient();
-  releaseWakeLock();
-  remainingSeconds = totalSeconds;
-  nextChimeMark = chimeEvery;
-  render();
-}
+    function openSavedLink(id) {
+      const val = document.getElementById(id).value.trim();
+      if (!val) return;
+      window.open(val, '_blank');
+    }
 
-function saveLinks() {
-  ['spotifyUrl','meditoUrl','headspaceUrl','insightUrl'].forEach(id => {
-    localStorage.setItem(id, document.getElementById(id).value.trim());
-  });
-}
+    document.addEventListener('visibilitychange', async () => {
+      if (document.visibilityState === 'visible' && running) {
+        await requestWakeLock();
+      }
+    });
 
-function loadLinks() {
-  ['spotifyUrl','meditoUrl','headspaceUrl','insightUrl'].forEach(id => {
-    const saved = localStorage.getItem(id);
-    if (saved) document.getElementById(id).value = saved;
-  });
-}
-
-function openSavedLink(id) {
-  const val = document.getElementById(id).value.trim();
-  if (!val) return;
-  window.open(val, '_blank');
-}
-
-document.addEventListener('visibilitychange', async () => {
-  if (document.visibilityState === 'visible' && running) {
-    requestWakeLock();
-  }
-});
-
-loadLinks();
-updateChime();
-render();
-</script>
+    loadLinks();
+    updateChime();
+    renderMeditation();
+  </script>
 </body>
 </html>
