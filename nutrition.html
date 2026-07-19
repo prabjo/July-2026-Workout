@@ -1,409 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nutrition</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, sans-serif; background: #0f0f0f; color: #f0f0f0; padding: 16px; }
-  h1 { font-size: 20px; font-weight: 700; text-align: center; margin-bottom: 4px; color: #fff; }
-  .subtitle { text-align: center; color: #888; font-size: 13px; margin-bottom: 20px; }
-
-  .app-nav {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-bottom: 18px;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .app-nav::-webkit-scrollbar { display: none; }
-  .app-link {
-    flex-shrink: 0;
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: #1c1c1c;
-    color: #bbb;
-    font-size: 13px;
-    font-weight: 700;
-    border: 1px solid #2a2a2a;
-  }
-  .app-link.active {
-    background: #e8ff47;
-    color: #000;
-    border-color: #e8ff47;
-  }
-
-  .card { background: #1a1a1a; border-radius: 16px; padding: 18px; margin-bottom: 12px; }
-  .card h2 { font-size: 18px; margin-bottom: 12px; }
-  .card h3 { font-size: 16px; margin-bottom: 10px; }
-  .muted { color: #888; font-size: 13px; }
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: #666; text-transform: uppercase; margin-bottom: 8px; margin-top: 16px; }
-
-  .goal-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .goal-box {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 14px;
-    padding: 14px;
-  }
-  .goal-num {
-    color: #e8ff47;
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 4px;
-  }
-  .goal-sub {
-    color: #aaa;
-    font-size: 12px;
-  }
-
-  .pill-row {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    margin-bottom: 16px;
-    padding-bottom: 4px;
-    scrollbar-width: none;
-  }
-  .pill-row::-webkit-scrollbar { display: none; }
-  .pill {
-    flex-shrink: 0;
-    padding: 8px 12px;
-    border-radius: 999px;
-    background: #222;
-    color: #bbb;
-    border: 1px solid #2a2a2a;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .pill.active {
-    background: #4fc3f7;
-    color: #000;
-    border-color: #4fc3f7;
-  }
-
-  .food-row, .recipe-row {
-    display: grid;
-    grid-template-columns: 1.2fr .8fr .6fr .6fr .6fr .8fr;
-    gap: 8px;
-    padding: 12px 0;
-    border-bottom: 1px solid #2a2a2a;
-    align-items: start;
-  }
-  .food-row.header, .recipe-row.header {
-    color: #888;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    padding-top: 0;
-  }
-  .food-row:last-child, .recipe-row:last-child { border-bottom: none; }
-
-  .name { font-weight: 700; }
-  .subnote { color: #888; font-size: 12px; margin-top: 2px; }
-  .tag-yes { color: #4fc3f7; font-weight: 700; }
-  .tag-no { color: #888; font-weight: 700; }
-
-  .simple-list {
-    list-style: none;
-    margin-top: 6px;
-  }
-  .simple-list li {
-    padding: 10px 0;
-    border-bottom: 1px solid #2a2a2a;
-    color: #ddd;
-  }
-  .simple-list li:last-child { border-bottom: none; }
-
-  .macro-chip-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-  }
-  .macro-chip {
-    background: #111;
-    border: 1px solid #2a2a2a;
-    border-radius: 999px;
-    padding: 7px 10px;
-    font-size: 12px;
-    color: #ddd;
-  }
-
-  .hidden { display: none; }
-
-  @media (max-width: 720px) {
-    .goal-grid { grid-template-columns: 1fr 1fr; }
-    .food-row, .recipe-row {
-      grid-template-columns: 1fr;
-      gap: 4px;
-      padding: 14px 0;
-    }
-    .food-row.header, .recipe-row.header { display: none; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="nutrition">
+  <div class="page-wrap">
+    <div id="app-nav"></div>
 
-<div class="app-nav">
-  <a class="app-link" href="index.html">Workout</a>
-  <a class="app-link active" href="nutrition.html">Nutrition</a>
-  <a class="app-link" href="hiit-timer.html">HIIT Timer</a>
-</div>
+    <header class="hero">
+      <h1>Nutrition</h1>
+      <p class="subtitle">Protein · Fiber · Fermented Foods · Grocery Staples</p>
+    </header>
 
-<h1>Nutrition</h1>
-<p class="subtitle">Protein · Fiber · Fermented Foods · Grocery Staples</p>
+    <div class="card">
+      <h2>Goals</h2>
+      <div class="goal-grid">
+        <div class="goal-box">
+          <div class="goal-num">130–160g</div>
+          <div>Protein / day</div>
+          <div class="goal-sub">leaner cut target</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">30g</div>
+          <div>Fiber / day</div>
+          <div class="goal-sub">daily target</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">3</div>
+          <div>Fermented servings</div>
+          <div class="goal-sub">per day</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">30–40g</div>
+          <div>Protein / meal</div>
+          <div class="goal-sub">main meals</div>
+        </div>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>Goals</h2>
-  <div class="goal-grid">
-    <div class="goal-box">
-      <div class="goal-num">130–160g</div>
-      <div>Protein / day</div>
-      <div class="goal-sub">leaner cut target</div>
+    <div class="pill-row" style="margin-bottom:12px;">
+      <button class="pill active" onclick="showNutritionTab('groceries', this)">Groceries</button>
+      <button class="pill" onclick="showNutritionTab('recipes', this)">Recipes</button>
+      <button class="pill" onclick="showNutritionTab('mixmatch', this)">Mix & Match</button>
     </div>
-    <div class="goal-box">
-      <div class="goal-num">30g</div>
-      <div>Fiber / day</div>
-      <div class="goal-sub">daily target</div>
+
+    <div id="groceries">
+      <div class="card">
+        <h2>Staples</h2>
+        <p class="muted">Approximate values per common serving.</p>
+
+        <div class="section-label">Protein staples</div>
+        <div class="food-row header">
+          <div>Food</div><div>Serving</div><div>Protein</div><div>Carbs</div><div>Fiber</div><div>Fermented</div>
+        </div>
+
+        <div class="food-row">
+          <div><div class="name">Eggs</div><div class="subnote">easy breakfast anchor</div></div>
+          <div>3 eggs</div><div>18g</div><div>1g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Greek yogurt</div><div class="subnote">live active cultures</div></div>
+          <div>1 cup</div><div>20g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kefir</div><div class="subnote">drinkable fermented add-on</div></div>
+          <div>1 cup</div><div>10g</div><div>12g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Chicken breast</div><div class="subnote">lean lunch staple</div></div>
+          <div>6 oz cooked</div><div>45g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Salmon</div><div class="subnote">great dinner staple</div></div>
+          <div>6 oz cooked</div><div>43g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Protein powder</div><div class="subnote">use when meals are short</div></div>
+          <div>1 scoop</div><div>20–25g</div><div>2–5g</div><div>0–2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Dal / lentils</div><div class="subnote">best vegetarian combo</div></div>
+          <div>1 cup cooked</div><div>18g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Black beans</div><div class="subnote">fiber anchor</div></div>
+          <div>1 cup cooked</div><div>15g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
+        </div>
+
+        <div class="section-label">Fiber add-ons</div>
+
+        <div class="food-row">
+          <div><div class="name">Chia seeds</div><div class="subnote">easy fiber booster</div></div>
+          <div>2 tbsp</div><div>5g</div><div>10g</div><div>8g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Ground flaxseed</div><div class="subnote">easy add-in</div></div>
+          <div>1 tbsp</div><div>2g</div><div>3g</div><div>2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Oats</div><div class="subnote">overnight oats or smoothie</div></div>
+          <div>1/2 cup dry</div><div>5g</div><div>27g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Apple</div><div class="subnote">portable fruit</div></div>
+          <div>1 medium</div><div>0g</div><div>25g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Berries</div><div class="subnote">high-fiber fruit</div></div>
+          <div>1 cup</div><div>1g</div><div>21g</div><div>6–8g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Avocado</div><div class="subnote">fiber + staying power</div></div>
+          <div>1/2 avocado</div><div>2g</div><div>9g</div><div>7g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Okra</div><div class="subnote">great with roti</div></div>
+          <div>1 cup cooked</div><div>2g</div><div>7g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kale</div><div class="subnote">best dinner green</div></div>
+          <div>1 cup cooked</div><div>3g</div><div>7g</div><div>5g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Broccolini</div><div class="subnote">strong side option</div></div>
+          <div>1 cup cooked</div><div>5–6g</div><div>12g</div><div>5–6g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Whole-wheat roti</div><div class="subnote">good carb base</div></div>
+          <div>1 roti</div><div>3g</div><div>18g</div><div>2–3g</div><div class="tag-no">No</div>
+        </div>
+
+        <div class="section-label">Fermented extras</div>
+
+        <div class="food-row">
+          <div><div class="name">Plain yogurt</div><div class="subnote">must say live cultures</div></div>
+          <div>3/4 cup</div><div>8g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Miso</div><div class="subnote">great with salmon dinner</div></div>
+          <div>1 tbsp</div><div>2g</div><div>3g</div><div>1g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kimchi</div><div class="subnote">easy side</div></div>
+          <div>1/2 cup</div><div>1g</div><div>4g</div><div>2g</div><div class="tag-yes">Yes</div>
+        </div>
+      </div>
     </div>
-    <div class="goal-box">
-      <div class="goal-num">3</div>
-      <div>Fermented servings</div>
-      <div class="goal-sub">per day</div>
+
+    <div id="recipes" class="hidden">
+      <div class="card">
+        <h2>Smoothie</h2>
+        <ul class="simple-list">
+          <li>1 cup plain Greek yogurt</li>
+          <li>1 scoop protein powder</li>
+          <li>1–2 tbsp chia seeds</li>
+          <li>1 tbsp ground flaxseed</li>
+          <li>1 apple</li>
+          <li>1/2 cup frozen mango</li>
+          <li>1 handful spinach</li>
+          <li>Fresh ginger</li>
+          <li>Water, milk, or kefir to blend</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~35–45g</div>
+          <div class="macro-chip">Fiber: ~12–18g</div>
+          <div class="macro-chip">Fermented: Yes if yogurt/kefir has live cultures</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Overnight Oats</h2>
+        <ul class="simple-list">
+          <li>1/2 cup oats</li>
+          <li>1 cup Greek yogurt</li>
+          <li>1 tbsp chia seeds</li>
+          <li>1 tbsp ground flaxseed</li>
+          <li>1/2 to 1 cup berries</li>
+          <li>Optional diced apple</li>
+          <li>Splash of milk or kefir if needed</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~28–32g</div>
+          <div class="macro-chip">Fiber: ~12–16g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Salmon Dinner</h2>
+        <ul class="simple-list">
+          <li>5–6 oz salmon</li>
+          <li>1 cup kale or broccolini</li>
+          <li>4 mini potatoes, skin on</li>
+          <li>1 tbsp miso on the side or in broth</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~45–55g</div>
+          <div class="macro-chip">Fiber: ~8–11g</div>
+          <div class="macro-chip">Fermented: Yes from miso</div>
+        </div>
+      </div>
     </div>
-    <div class="goal-box">
-      <div class="goal-num">30–40g</div>
-      <div>Protein / meal</div>
-      <div class="goal-sub">main meals</div>
+
+    <div id="mixmatch" class="hidden">
+      <div class="card">
+        <h2>Breakfast Formula</h2>
+        <ul class="simple-list">
+          <li>Pick 1 protein anchor: 3 eggs or Greek yogurt</li>
+          <li>Add fiber: chia, flax, oats, berries, apple</li>
+          <li>Add fermented: yogurt or kefir</li>
+          <li>Target 30–40g protein</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Lunch Formula</h2>
+        <ul class="simple-list">
+          <li>Protein: chicken, dal, black beans, turkey, or protein shake if needed</li>
+          <li>Veg: okra, greens, beets</li>
+          <li>Carb: roti or potatoes</li>
+          <li>Fermented side: yogurt, kefir, kimchi</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Dinner Formula</h2>
+        <ul class="simple-list">
+          <li>Protein: salmon, eggs, dal, or chicken</li>
+          <li>Veg: kale, broccolini, okra, gobi</li>
+          <li>Carb: potatoes or roti as needed</li>
+          <li>Fermented side: miso, yogurt, kefir</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Snack Ideas</h2>
+        <ul class="simple-list">
+          <li>Greek yogurt + fruit</li>
+          <li>Fruit + peanut butter</li>
+          <li>Fruit + nuts</li>
+          <li>Kefir if you need protein + fermented support</li>
+        </ul>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="pill-row">
-  <button class="pill active" onclick="showTab('groceries', this)">Groceries</button>
-  <button class="pill" onclick="showTab('recipes', this)">Recipes</button>
-  <button class="pill" onclick="showTab('mixmatch', this)">Mix & Match</button>
-</div>
-
-<div id="groceries">
-  <div class="card">
-    <h2>Staples</h2>
-    <p class="muted">Approximate values per common serving.</p>
-
-    <div class="section-label">Protein staples</div>
-    <div class="food-row header">
-      <div>Food</div><div>Serving</div><div>Protein</div><div>Carbs</div><div>Fiber</div><div>Fermented</div>
-    </div>
-
-    <div class="food-row">
-      <div><div class="name">Eggs</div><div class="subnote">easy breakfast anchor</div></div>
-      <div>3 eggs</div><div>18g</div><div>1g</div><div>0g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Greek yogurt</div><div class="subnote">choose live active cultures</div></div>
-      <div>1 cup</div><div>20g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Kefir</div><div class="subnote">easy drinkable fermented add-on</div></div>
-      <div>1 cup</div><div>10g</div><div>12g</div><div>0g</div><div class="tag-yes">Yes</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Chicken breast</div><div class="subnote">lean lunch staple</div></div>
-      <div>6 oz cooked</div><div>45g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Salmon</div><div class="subnote">great dinner staple</div></div>
-      <div>6 oz cooked</div><div>43g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Protein powder</div><div class="subnote">use when meals are short</div></div>
-      <div>1 scoop</div><div>20–25g</div><div>2–5g</div><div>0–2g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Dal / lentils</div><div class="subnote">best vegetarian combo</div></div>
-      <div>1 cup cooked</div><div>18g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Black beans</div><div class="subnote">fiber anchor</div></div>
-      <div>1 cup cooked</div><div>15g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
-    </div>
-
-    <div class="section-label">Fiber add-ons</div>
-
-    <div class="food-row">
-      <div><div class="name">Chia seeds</div><div class="subnote">easy fiber booster</div></div>
-      <div>2 tbsp</div><div>5g</div><div>10g</div><div>8g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Ground flaxseed</div><div class="subnote">easy smoothie add-in</div></div>
-      <div>1 tbsp</div><div>2g</div><div>3g</div><div>2g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Oats</div><div class="subnote">overnight oats or smoothie</div></div>
-      <div>1/2 cup dry</div><div>5g</div><div>27g</div><div>4g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Apple</div><div class="subnote">portable fruit</div></div>
-      <div>1 medium</div><div>0g</div><div>25g</div><div>4g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Berries</div><div class="subnote">high-fiber fruit</div></div>
-      <div>1 cup</div><div>1g</div><div>21g</div><div>6–8g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Avocado</div><div class="subnote">fiber + staying power</div></div>
-      <div>1/2 avocado</div><div>2g</div><div>9g</div><div>7g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Okra</div><div class="subnote">great with roti</div></div>
-      <div>1 cup cooked</div><div>2g</div><div>7g</div><div>4g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Kale</div><div class="subnote">best dinner green</div></div>
-      <div>1 cup cooked</div><div>3g</div><div>7g</div><div>5g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Broccolini</div><div class="subnote">strong side option</div></div>
-      <div>1 cup cooked</div><div>5–6g</div><div>12g</div><div>5–6g</div><div class="tag-no">No</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Whole-wheat roti</div><div class="subnote">good carb base</div></div>
-      <div>1 roti</div><div>3g</div><div>18g</div><div>2–3g</div><div class="tag-no">No</div>
-    </div>
-
-    <div class="section-label">Fermented extras</div>
-
-    <div class="food-row">
-      <div><div class="name">Plain yogurt</div><div class="subnote">must say live active cultures</div></div>
-      <div>3/4 cup</div><div>8g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Miso</div><div class="subnote">great with salmon dinner</div></div>
-      <div>1 tbsp</div><div>2g</div><div>3g</div><div>1g</div><div class="tag-yes">Yes</div>
-    </div>
-    <div class="food-row">
-      <div><div class="name">Kimchi</div><div class="subnote">easy side</div></div>
-      <div>1/2 cup</div><div>1g</div><div>4g</div><div>2g</div><div class="tag-yes">Yes</div>
-    </div>
-  </div>
-</div>
-
-<div id="recipes" class="hidden">
-  <div class="card">
-    <h2>Smoothie</h2>
-    <ul class="simple-list">
-      <li>1 cup plain Greek yogurt</li>
-      <li>1 scoop protein powder</li>
-      <li>1–2 tbsp chia seeds</li>
-      <li>1 tbsp ground flaxseed</li>
-      <li>1 apple</li>
-      <li>1/2 cup frozen mango</li>
-      <li>1 handful spinach</li>
-      <li>Fresh ginger</li>
-      <li>Water, milk, or kefir to blend</li>
-    </ul>
-    <div class="macro-chip-wrap">
-      <div class="macro-chip">Protein: ~35–45g</div>
-      <div class="macro-chip">Fiber: ~12–18g</div>
-      <div class="macro-chip">Fermented: Yes if yogurt/kefir has live cultures</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Overnight Oats</h2>
-    <ul class="simple-list">
-      <li>1/2 cup oats</li>
-      <li>1 cup Greek yogurt</li>
-      <li>1 tbsp chia seeds</li>
-      <li>1 tbsp ground flaxseed</li>
-      <li>1/2 to 1 cup berries</li>
-      <li>Optional diced apple</li>
-      <li>Splash of milk or kefir if needed</li>
-    </ul>
-    <div class="macro-chip-wrap">
-      <div class="macro-chip">Protein: ~28–32g</div>
-      <div class="macro-chip">Fiber: ~12–16g</div>
-      <div class="macro-chip">Fermented: Yes</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>Salmon Dinner</h2>
-    <ul class="simple-list">
-      <li>5–6 oz salmon</li>
-      <li>1 cup kale or broccolini</li>
-      <li>4 mini potatoes, skin on</li>
-      <li>1 tbsp miso on the side or in broth</li>
-    </ul>
-    <div class="macro-chip-wrap">
-      <div class="macro-chip">Protein: ~45–55g</div>
-      <div class="macro-chip">Fiber: ~8–11g</div>
-      <div class="macro-chip">Fermented: Yes from miso</div>
-    </div>
-  </div>
-</div>
-
-<div id="mixmatch" class="hidden">
-  <div class="card">
-    <h2>Breakfast Formula</h2>
-    <ul class="simple-list">
-      <li>Pick 1 protein anchor: 3 eggs or Greek yogurt</li>
-      <li>Add fiber: chia, flax, oats, berries, apple</li>
-      <li>Add fermented: yogurt or kefir</li>
-      <li>Best target: 30–40g protein</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Lunch Formula</h2>
-    <ul class="simple-list">
-      <li>Protein: chicken, dal, black beans, turkey, or protein shake if needed</li>
-      <li>Veg: okra, greens, beets</li>
-      <li>Carb: roti or potatoes</li>
-      <li>Fermented side: yogurt, kefir, kimchi</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Dinner Formula</h2>
-    <ul class="simple-list">
-      <li>Protein: salmon, eggs, dal, or chicken</li>
-      <li>Veg: kale, broccolini, okra, gobi</li>
-      <li>Carb: potatoes or roti as needed</li>
-      <li>Fermented side: miso, yogurt, kefir</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <h2>Snack Ideas</h2>
-    <ul class="simple-list">
-      <li>Greek yogurt + fruit</li>
-      <li>Fruit + peanut butter</li>
-      <li>Fruit + nuts</li>
-      <li>Kefir if you need protein + fermented support</li>
-    </ul>
-  </div>
-</div>
-
-<script>
-function showTab(id, btn) {
-  ['groceries', 'recipes', 'mixmatch'].forEach(x => {
-    document.getElementById(x).classList.add('hidden');
-  });
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-  btn.classList.add('active');
-}
-</script>
+  <script src="nav.js"></script>
+  <script>
+    function showNutritionTab(id, btn) {
+      ['groceries', 'recipes', 'mixmatch'].forEach(x => {
+        document.getElementById(x).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+    }
+  </script>
 </body>
 </html>
