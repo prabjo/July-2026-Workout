@@ -6,6 +6,7 @@
 
   const items = [
     { key: "workout", href: "index.html", label: "Workout" },
+    { key: "travel", href: "travel.html", label: "Travel" },
     { key: "nutrition", href: "nutrition.html", label: "Nutrition" },
     { key: "hiit", href: "hiit-timer.html", label: "HIIT Timer" },
     { key: "meditation", href: "meditation.html", label: "Meditation" }
