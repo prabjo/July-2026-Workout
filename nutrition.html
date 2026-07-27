@@ -5,6 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nutrition</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Shopping list additions — self-contained so styles.css doesn't need edits */
+    .shop-store-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .shop-progress {
+      font-size: 0.85em;
+      opacity: 0.7;
+    }
+    .shop-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 4px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .shop-item:last-child { border-bottom: none; }
+    .shop-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      accent-color: #4a7c59;
+      cursor: pointer;
+    }
+    .shop-item .shop-text { line-height: 1.35; }
+    .shop-item .shop-note {
+      display: block;
+      font-size: 0.82em;
+      opacity: 0.65;
+    }
+    .shop-item.checked .shop-text {
+      text-decoration: line-through;
+      opacity: 0.45;
+    }
+    .shop-reset {
+      border: 1px solid rgba(128, 128, 128, 0.35);
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-size: 0.85em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .shop-reset:hover { background: rgba(128, 128, 128, 0.1); }
+    .shop-reset:focus-visible { outline: 2px solid #4a7c59; outline-offset: 2px; }
+    .shop-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body data-page="nutrition">
   <div class="page-wrap">
@@ -43,6 +104,7 @@
 
     <div class="pill-row" style="margin-bottom:12px;">
       <button class="pill active" onclick="showNutritionTab('groceries', this)">Groceries</button>
+      <button class="pill" onclick="showNutritionTab('shopping', this)">Shopping</button>
       <button class="pill" onclick="showNutritionTab('recipes', this)">Recipes</button>
       <button class="pill" onclick="showNutritionTab('mixmatch', this)">Mix & Match</button>
     </div>
@@ -150,6 +212,32 @@
       </div>
     </div>
 
+    <div id="shopping" class="hidden">
+      <div class="card">
+        <div class="shop-store-head">
+          <h2>Costco</h2>
+          <span class="shop-progress" id="progress-costco"></span>
+        </div>
+        <p class="muted">Checks are saved on this device while you shop. Reset when you're done.</p>
+        <div id="list-costco"></div>
+        <div class="shop-actions">
+          <button class="shop-reset" onclick="resetStore('costco')">Reset Costco list</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="shop-store-head">
+          <h2>Co-op / Farmers Market</h2>
+          <span class="shop-progress" id="progress-coop"></span>
+        </div>
+        <p class="muted">Checks are saved on this device while you shop. Reset when you're done.</p>
+        <div id="list-coop"></div>
+        <div class="shop-actions">
+          <button class="shop-reset" onclick="resetStore('coop')">Reset Co-op list</button>
+        </div>
+      </div>
+    </div>
+
     <div id="recipes" class="hidden">
       <div class="card">
         <h2>Smoothie</h2>
@@ -251,13 +339,160 @@
   <script src="nav.js"></script>
   <script>
     function showNutritionTab(id, btn) {
-      ['groceries', 'recipes', 'mixmatch'].forEach(x => {
+      ['groceries', 'shopping', 'recipes', 'mixmatch'].forEach(x => {
         document.getElementById(x).classList.add('hidden');
       });
       document.getElementById(id).classList.remove('hidden');
       document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
     }
+
+    // ---------- Shopping list data ----------
+    const SHOPPING = {
+      costco: {
+        storageKey: 'shop-costco-v1',
+        sections: [
+          { label: 'Proteins', items: [
+            { n: 'Salmon fillets', s: '2–3 lb package, freeze extras' },
+            { n: 'Rib eye steaks', s: 'if bulk package available, freeze portions' },
+            { n: 'Greek yogurt', s: 'Fage or Kirkland, 32 oz, grab 2–3' },
+            { n: 'Cottage cheese', s: 'Kirkland' },
+            { n: 'Tempeh', s: 'if available' },
+            { n: 'Lentil or chickpea pasta', s: 'Banza or Barilla, 1–2 boxes' }
+          ]},
+          { label: 'Produce', items: [
+            { n: 'Avocados', s: 'bag of 6–8' },
+            { n: 'Frozen blueberries', s: 'large bag' },
+            { n: 'Apples', s: 'mixed varieties, 3 lb bag' },
+            { n: 'Baby spinach', s: 'container' }
+          ]},
+          { label: 'Pantry / Bulk', items: [
+            { n: 'Rolled oats', s: 'large container' },
+            { n: 'Brown rice', s: '' },
+            { n: 'Chia seeds', s: 'large bag' },
+            { n: 'Ground flaxseed', s: '' },
+            { n: 'Extra virgin olive oil', s: '' },
+            { n: 'Sea salt', s: 'if low' },
+            { n: 'Protein powder', s: 'Kirkland, ON, or Isopure' },
+            { n: 'Pure maple syrup', s: '' }
+          ]},
+          { label: 'Freezer', items: [
+            { n: 'Frozen mango chunks', s: '' },
+            { n: 'Frozen broccoli', s: 'backup to fresh' }
+          ]},
+          { label: 'Specialty', items: [
+            { n: 'Canned black chickpeas', s: '2–3 cans as backup' },
+            { n: 'Sardines or mackerel', s: 'alternate omega-3 source' }
+          ]}
+        ]
+      },
+      coop: {
+        storageKey: 'shop-coop-v1',
+        sections: [
+          { label: 'Proteins', items: [
+            { n: 'Eggs', s: 'pasture-raised if budget allows' },
+            { n: 'Chicken', s: 'whole bird or breasts, local farm' }
+          ]},
+          { label: 'Produce', items: [
+            { n: 'Sweet potatoes', s: 'fresh, 3–5' },
+            { n: 'Broccolini', s: '2–3 bunches' },
+            { n: 'Beets', s: 'bunch, with greens if possible' },
+            { n: 'Carrots', s: 'for kraut topping' },
+            { n: 'Fresh ginger', s: '' },
+            { n: 'Garlic', s: 'fresh bulbs' }
+          ]},
+          { label: 'Fermented / Cultured', items: [
+            { n: 'Kimchi', s: 'local maker, fresher than packaged' },
+            { n: 'Kefir', s: 'grass-fed or local brand' }
+          ]},
+          { label: 'Other', items: [
+            { n: 'Nut butter', s: 'fresh-ground, almond or mixed' },
+            { n: 'Raw honey', s: 'local' },
+            { n: 'Miso paste', s: 'white or chickpea miso' },
+            { n: 'Nutritional yeast', s: '' }
+          ]}
+        ]
+      }
+    };
+
+    // ---------- Persistence (localStorage on this device) ----------
+    function loadChecks(key) {
+      try { return JSON.parse(localStorage.getItem(key)) || {}; }
+      catch (e) { return {}; }
+    }
+    function saveChecks(key, obj) {
+      try { localStorage.setItem(key, JSON.stringify(obj)); }
+      catch (e) { /* private mode: checks just won't persist */ }
+    }
+
+    // ---------- Render ----------
+    function renderStore(store) {
+      const cfg = SHOPPING[store];
+      const container = document.getElementById('list-' + store);
+      const checks = loadChecks(cfg.storageKey);
+      container.innerHTML = '';
+
+      cfg.sections.forEach((sec, si) => {
+        const lbl = document.createElement('div');
+        lbl.className = 'section-label';
+        lbl.textContent = sec.label;
+        container.appendChild(lbl);
+
+        sec.items.forEach((item, ii) => {
+          const id = store + '-' + si + '-' + ii;
+          const row = document.createElement('label');
+          row.className = 'shop-item' + (checks[id] ? ' checked' : '');
+          row.setAttribute('for', 'cb-' + id);
+
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.id = 'cb-' + id;
+          cb.checked = !!checks[id];
+          cb.addEventListener('change', () => {
+            const current = loadChecks(cfg.storageKey);
+            if (cb.checked) current[id] = true;
+            else delete current[id];
+            saveChecks(cfg.storageKey, current);
+            row.classList.toggle('checked', cb.checked);
+            updateProgress(store);
+          });
+
+          const text = document.createElement('span');
+          text.className = 'shop-text';
+          text.textContent = item.n;
+          if (item.s) {
+            const note = document.createElement('span');
+            note.className = 'shop-note';
+            note.textContent = item.s;
+            text.appendChild(note);
+          }
+
+          row.appendChild(cb);
+          row.appendChild(text);
+          container.appendChild(row);
+        });
+      });
+
+      updateProgress(store);
+    }
+
+    function updateProgress(store) {
+      const cfg = SHOPPING[store];
+      const total = cfg.sections.reduce((n, s) => n + s.items.length, 0);
+      const done = Object.keys(loadChecks(cfg.storageKey)).length;
+      document.getElementById('progress-' + store).textContent = done + ' / ' + total + ' in cart';
+    }
+
+    function resetStore(store) {
+      const cfg = SHOPPING[store];
+      const done = Object.keys(loadChecks(cfg.storageKey)).length;
+      if (done > 0 && !confirm('Clear all checked items on this list?')) return;
+      localStorage.removeItem(cfg.storageKey);
+      renderStore(store);
+    }
+
+    renderStore('costco');
+    renderStore('coop');
   </script>
 </body>
 </html>
