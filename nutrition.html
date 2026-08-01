@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Shopping list additions — self-contained so styles.css doesn't need edits */
+    .shop-store-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .shop-progress {
+      font-size: 0.85em;
+      opacity: 0.7;
+    }
+    .shop-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 9px 4px;
+      border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .shop-item:last-child { border-bottom: none; }
+    .shop-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 1px;
+      flex-shrink: 0;
+      accent-color: #4a7c59;
+      cursor: pointer;
+    }
+    .shop-item .shop-text { line-height: 1.35; }
+    .shop-item .shop-note {
+      display: block;
+      font-size: 0.82em;
+      opacity: 0.65;
+    }
+    .shop-item.checked .shop-text {
+      text-decoration: line-through;
+      opacity: 0.45;
+    }
+    .shop-reset {
+      border: 1px solid rgba(128, 128, 128, 0.35);
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      font-size: 0.85em;
+      padding: 5px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .shop-reset:hover { background: rgba(128, 128, 128, 0.1); }
+    .shop-reset:focus-visible { outline: 2px solid #4a7c59; outline-offset: 2px; }
+    .shop-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body data-page="nutrition">
+  <div class="page-wrap">
+    <div id="app-nav"></div>
+
+    <header class="hero">
+      <h1>Nutrition</h1>
+      <p class="subtitle">Protein · Fiber · Fermented Foods · Grocery Staples</p>
+    </header>
+
+    <div class="card">
+      <h2>Daily Targets</h2>
+      <div class="goal-grid">
+        <div class="goal-box">
+          <div class="goal-num">160–175g</div>
+          <div>Protein / day</div>
+          <div class="goal-sub">1g per lb of goal weight</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">2,300–2,500</div>
+          <div>Calories / day</div>
+          <div class="goal-sub">300–500 under maintenance</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">30–40g</div>
+          <div>Fiber / day</div>
+          <div class="goal-sub">already hitting this</div>
+        </div>
+        <div class="goal-box">
+          <div class="goal-num">3</div>
+          <div>Fermented servings</div>
+          <div class="goal-sub">vary the type</div>
+        </div>
+      </div>
+      <div class="tip-box">💡 Protein scales to <strong>goal</strong> weight — you're feeding lean mass, not fat. Calories scale to <strong>current</strong> weight, so recalculate every 10 lbs down.</div>
+    </div>
+
+    <div class="card">
+      <h2>Where the Protein Goes</h2>
+      <p class="muted">Splitting 165g across the day. Lunch is the one that's been getting shorted.</p>
+      <div class="food-row">
+        <div><div class="name">Breakfast</div><div class="subnote">smoothie or oats + yogurt</div></div>
+        <div>40–45g</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Lunch</div><div class="subnote">make this the big one — 6 oz chicken minimum</div></div>
+        <div>45–50g</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Dinner</div><div class="subnote">salmon, chicken, or beans + a second source</div></div>
+        <div>40–45g</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Snack</div><div class="subnote">cottage cheese, eggs, kefir</div></div>
+        <div>20–25g</div>
+      </div>
+      <div class="tip-box">💡 Eat protein first at every meal. Powder covers gaps but keep it under a third of the daily total — roughly two scoops max.</div>
+    </div>
+
+    <div class="card">
+      <h2>Training Day Adjustments</h2>
+      <div class="food-row">
+        <div><div class="name">Golf days (Tue / Fri)</div><div class="subnote">walking 18 burns 600–900 cal</div></div>
+        <div>+300 cal</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Run day (Mon)</div><div class="subnote">don't cut carbs — that's where crashes come from</div></div>
+        <div>+200 cal</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Lift days (Wed / Sat)</div><div class="subnote">protein target is non-negotiable here</div></div>
+        <div>+200 cal</div>
+      </div>
+      <div class="food-row">
+        <div><div class="name">Yoga / rest (Thu / Sun)</div><div class="subnote">baseline is fine</div></div>
+        <div>baseline</div>
+      </div>
+      <div class="tip-box">💡 Two weeks at 165g protein and 2,400 calories. If you're finishing full sessions and soreness clears in 24–36 hrs, it was fueling. If not, go to maintenance for two weeks before resuming the cut.</div>
+    </div>
+
+    <div class="pill-row" style="margin-bottom:12px;">
+      <button class="pill active" onclick="showNutritionTab('groceries', this)">Groceries</button>
+      <button class="pill" onclick="showNutritionTab('shopping', this)">Shopping</button>
+      <button class="pill" onclick="showNutritionTab('recipes', this)">Recipes</button>
+      <button class="pill" onclick="showNutritionTab('mixmatch', this)">Mix &amp; Match</button>
+    </div>
+
+    <div id="groceries">
+      <div class="card">
+        <h2>Staples</h2>
+        <p class="muted">Approximate values per common serving.</p>
+
+        <div class="section-label">Protein staples</div>
+        <div class="food-row header">
+          <div>Food</div><div>Serving</div><div>Protein</div><div>Carbs</div><div>Fiber</div><div>Fermented</div>
+        </div>
+
+        <div class="food-row">
+          <div><div class="name">Eggs</div><div class="subnote">easy breakfast anchor</div></div>
+          <div>3 eggs</div><div>18g</div><div>1g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Greek yogurt</div><div class="subnote">live active cultures</div></div>
+          <div>1 cup</div><div>20g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Cottage cheese</div><div class="subnote">fastest protein in the fridge</div></div>
+          <div>1 cup</div><div>28g</div><div>6g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kefir</div><div class="subnote">drinkable fermented add-on</div></div>
+          <div>1 cup</div><div>10g</div><div>12g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Chicken breast</div><div class="subnote">lean lunch staple</div></div>
+          <div>6 oz cooked</div><div>45g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Salmon</div><div class="subnote">great dinner staple</div></div>
+          <div>6 oz cooked</div><div>43g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Rib eye</div><div class="subnote">Kamado night — higher fat, plan around it</div></div>
+          <div>6 oz cooked</div><div>40g</div><div>0g</div><div>0g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Tempeh</div><div class="subnote">pan-fry 3 min, fermented bonus</div></div>
+          <div>3 oz</div><div>19g</div><div>9g</div><div>5g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Protein powder</div><div class="subnote">gap filler, cap at 2 scoops</div></div>
+          <div>1 scoop</div><div>20–25g</div><div>2–5g</div><div>0–2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Dal / lentils</div><div class="subnote">best vegetarian combo</div></div>
+          <div>1 cup cooked</div><div>18g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Black beans</div><div class="subnote">fiber anchor</div></div>
+          <div>1 cup cooked</div><div>15g</div><div>40g</div><div>15g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Chickpea pasta</div><div class="subnote">1:1 swap for regular pasta</div></div>
+          <div>2 oz dry</div><div>13g</div><div>32g</div><div>6g</div><div class="tag-no">No</div>
+        </div>
+
+        <div class="section-label">Fiber add-ons</div>
+
+        <div class="food-row">
+          <div><div class="name">Chia seeds</div><div class="subnote">easy fiber booster</div></div>
+          <div>2 tbsp</div><div>5g</div><div>10g</div><div>8g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Hemp hearts</div><div class="subnote">protein + omega-3, blends invisibly</div></div>
+          <div>3 tbsp</div><div>10g</div><div>3g</div><div>2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Ground flaxseed</div><div class="subnote">easy add-in</div></div>
+          <div>1 tbsp</div><div>2g</div><div>3g</div><div>2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Oats</div><div class="subnote">overnight oats or smoothie</div></div>
+          <div>1/2 cup dry</div><div>5g</div><div>27g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Apple</div><div class="subnote">portable fruit</div></div>
+          <div>1 medium</div><div>0g</div><div>25g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Berries</div><div class="subnote">high-fiber fruit</div></div>
+          <div>1 cup</div><div>1g</div><div>21g</div><div>6–8g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Avocado</div><div class="subnote">fiber + staying power</div></div>
+          <div>1/2 avocado</div><div>2g</div><div>9g</div><div>7g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Okra</div><div class="subnote">great with roti</div></div>
+          <div>1 cup cooked</div><div>2g</div><div>7g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kale</div><div class="subnote">best dinner green</div></div>
+          <div>1 cup cooked</div><div>3g</div><div>7g</div><div>5g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Broccolini</div><div class="subnote">strong side option</div></div>
+          <div>1 cup cooked</div><div>5–6g</div><div>12g</div><div>5–6g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Sweet potato</div><div class="subnote">carb of choice around training</div></div>
+          <div>1 medium</div><div>2g</div><div>27g</div><div>4g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Whole-wheat roti</div><div class="subnote">good carb base</div></div>
+          <div>1 roti</div><div>3g</div><div>18g</div><div>2–3g</div><div class="tag-no">No</div>
+        </div>
+
+        <div class="section-label">Fermented extras</div>
+
+        <div class="food-row">
+          <div><div class="name">Plain yogurt</div><div class="subnote">must say live cultures</div></div>
+          <div>3/4 cup</div><div>8g</div><div>9g</div><div>0g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Miso</div><div class="subnote">great with salmon dinner</div></div>
+          <div>1 tbsp</div><div>2g</div><div>3g</div><div>1g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Kimchi</div><div class="subnote">easy side</div></div>
+          <div>1/2 cup</div><div>1g</div><div>4g</div><div>2g</div><div class="tag-yes">Yes</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Sauerkraut</div><div class="subnote">golden beet + carrot kraut works with fish</div></div>
+          <div>1/2 cup</div><div>1g</div><div>3g</div><div>2g</div><div class="tag-yes">Yes</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="shopping" class="hidden">
+      <div class="card">
+        <div class="shop-store-head">
+          <h2>Costco</h2>
+          <span class="shop-progress" id="progress-costco"></span>
+        </div>
+        <p class="muted">Checks are saved on this device while you shop. Reset when you're done.</p>
+        <div id="list-costco"></div>
+        <div class="shop-actions">
+          <button class="shop-reset" onclick="resetStore('costco')">Reset Costco list</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="shop-store-head">
+          <h2>Co-op / Farmers Market</h2>
+          <span class="shop-progress" id="progress-coop"></span>
+        </div>
+        <p class="muted">Checks are saved on this device while you shop. Reset when you're done.</p>
+        <div id="list-coop"></div>
+        <div class="shop-actions">
+          <button class="shop-reset" onclick="resetStore('coop')">Reset Co-op list</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="recipes" class="hidden">
+      <div class="card">
+        <h2>Smoothie</h2>
+        <ul class="simple-list">
+          <li>1 cup plain Greek yogurt</li>
+          <li>1 scoop protein powder</li>
+          <li>1–2 tbsp chia seeds</li>
+          <li>1 tbsp ground flaxseed</li>
+          <li>2 tbsp nut butter <em>(closes the calorie gap)</em></li>
+          <li>1 apple</li>
+          <li>1/2 cup frozen mango</li>
+          <li>1 handful spinach</li>
+          <li>Fresh ginger — skin on, just scrub it</li>
+          <li>Water, milk, or kefir to blend</li>
+        </ul>
+        <div class="section-label">Vitamix loading order</div>
+        <ul class="simple-list">
+          <li>1 · Liquid — water, milk, or kefir</li>
+          <li>2 · Greek yogurt</li>
+          <li>3 · Powder, ginger, nut butter</li>
+          <li>4 · Spinach</li>
+          <li>5 · Apple chunks</li>
+          <li>6 · Frozen mango on top — weight pushes everything down</li>
+          <li>7 · Chia and flax last, final 10 seconds</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~45–50g</div>
+          <div class="macro-chip">Fiber: ~15–20g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 Start on variable 1, ramp to 10 over 5 seconds. Slamming to high is what causes the air pocket.</div>
+      </div>
+
+      <div class="card">
+        <h2>Oatmeal + Yogurt</h2>
+        <ul class="simple-list">
+          <li>1/2 cup oats</li>
+          <li>1 cup Greek yogurt</li>
+          <li>1 tbsp chia seeds</li>
+          <li>1 tsp ground flaxseed</li>
+          <li>1 egg on the side</li>
+          <li>1/2 to 1 cup blueberries + diced apple</li>
+          <li>Handful spinach stirred into the warm oats <em>(replaces the smoothie's greens)</em></li>
+          <li>Splash of milk or kefir if needed</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~35–40g</div>
+          <div class="macro-chip">Fiber: ~18–20g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 Near-parity with the smoothie once you add the spinach and flax. Without them you lose the greens and one omega-3 source.</div>
+      </div>
+
+      <div class="card">
+        <h2>Lunch — The One That Needs Work</h2>
+        <ul class="simple-list">
+          <li>6 oz chicken <em>(not "a few pieces")</em></li>
+          <li>1 cup lentils, white beans, or black chickpeas</li>
+          <li>Brown rice or roti</li>
+          <li>Veg — okra, greens, beets</li>
+          <li>1/2 cup kimchi on the side</li>
+          <li>Olive oil or tahini for fat</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~60g</div>
+          <div class="macro-chip">Fiber: ~18g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 This is the single biggest fix. Making lunch the largest protein meal closes most of the daily gap on its own.</div>
+      </div>
+
+      <div class="card">
+        <h2>Salmon Dinner</h2>
+        <ul class="simple-list">
+          <li>5–6 oz salmon — salt 20 min ahead, pull at 120–125°F</li>
+          <li>1 cup kale or broccolini</li>
+          <li>Roasted sweet potato or 4 mini potatoes, skin on</li>
+          <li>Lentils underneath, or white beans tossed with the greens</li>
+          <li>1 tbsp miso on the side or in broth</li>
+          <li>Beets — roast whole with skin on, rub the skin off after</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~50–55g</div>
+          <div class="macro-chip">Fiber: ~14–16g</div>
+          <div class="macro-chip">Fermented: Yes from miso</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mixmatch" class="hidden">
+      <div class="card">
+        <h2>Breakfast Formula</h2>
+        <ul class="simple-list">
+          <li>Pick 1 protein anchor: 3 eggs, Greek yogurt, or cottage cheese</li>
+          <li>Add fiber: chia, hemp, flax, oats, berries, apple</li>
+          <li>Add fermented: yogurt or kefir</li>
+          <li>Add fat: nut butter or avocado</li>
+          <li>Target 40–45g protein</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Lunch Formula</h2>
+        <ul class="simple-list">
+          <li>Protein: 6 oz chicken, or dal plus a second source</li>
+          <li>Second protein: beans, lentils, cottage cheese, or eggs</li>
+          <li>Veg: okra, greens, beets</li>
+          <li>Carb: roti, brown rice, or potatoes</li>
+          <li>Fermented side: yogurt, kefir, kimchi</li>
+          <li>Target 45–50g protein — this is the meal that's been short</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Dinner Formula</h2>
+        <ul class="simple-list">
+          <li>Protein: salmon, chicken, rib eye, or dal</li>
+          <li>If the base is plant-only, add a second source — eggs, sardines, or leftover chicken</li>
+          <li>Veg: kale, broccolini, okra, gobi</li>
+          <li>Carb: sweet potato, potatoes, or roti</li>
+          <li>Fermented side: miso, kraut, kimchi, yogurt</li>
+          <li>Target 40–45g protein</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Snack Ideas</h2>
+        <ul class="simple-list">
+          <li>Cottage cheese + berries — 28g, zero prep</li>
+          <li>Hard-boiled eggs — keep a batch in the fridge</li>
+          <li>Kefir — protein and fermented in one</li>
+          <li>Greek yogurt + fruit</li>
+          <li>Nuts or fruit + nut butter — for calories on golf days</li>
+          <li>Jerky or a shake at the turn</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h2>Fermented — Rotate the Type</h2>
+        <ul class="simple-list">
+          <li>Dairy: yogurt, kefir — different strains than vegetable ferments</li>
+          <li>Vegetable: kimchi, sauerkraut</li>
+          <li>Soy: miso, tempeh</li>
+          <li>Aim for two different families per day, not three servings of the same one</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="nav.js"></script>
+  <script>
+    function showNutritionTab(id, btn) {
+      ['groceries', 'shopping', 'recipes', 'mixmatch'].forEach(x => {
+        document.getElementById(x).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    // ---------- Shopping list data ----------
+    const SHOPPING = {
+      costco: {
+        storageKey: 'shop-costco-v1',
+        sections: [
+          { label: 'Proteins', items: [
+            { n: 'Salmon fillets', s: '2–3 lb package, freeze extras' },
+            { n: 'Rib eye steaks', s: 'if bulk package available, freeze portions' },
+            { n: 'Greek yogurt', s: 'Fage or Kirkland, 32 oz, grab 2–3' },
+            { n: 'Cottage cheese', s: 'Kirkland — fastest 28g in the fridge' },
+            { n: 'Tempeh', s: 'if available' },
+            { n: 'Lentil or chickpea pasta', s: 'Banza or Barilla, 1–2 boxes' }
+          ]},
+          { label: 'Produce', items: [
+            { n: 'Avocados', s: 'bag of 6–8' },
+            { n: 'Frozen blueberries', s: 'large bag' },
+            { n: 'Apples', s: 'mixed varieties, 3 lb bag' },
+            { n: 'Baby spinach', s: 'container' }
+          ]},
+          { label: 'Pantry / Bulk', items: [
+            { n: 'Rolled oats', s: 'large container' },
+            { n: 'Brown rice', s: '' },
+            { n: 'Chia seeds', s: 'large bag' },
+            { n: 'Hemp hearts', s: '10g protein per 3 tbsp' },
+            { n: 'Ground flaxseed', s: '' },
+            { n: 'Nuts', s: 'almonds or mixed — calories on golf days' },
+            { n: 'Extra virgin olive oil', s: '' },
+            { n: 'Sea salt', s: 'if low' },
+            { n: 'Protein powder', s: 'look for NSF Certified for Sport' },
+            { n: 'Pure maple syrup', s: '' }
+          ]},
+          { label: 'Freezer', items: [
+            { n: 'Frozen mango chunks', s: '' },
+            { n: 'Frozen broccoli', s: 'backup to fresh' }
+          ]},
+          { label: 'Specialty', items: [
+            { n: 'Canned black chickpeas', s: '2–3 cans as backup' },
+            { n: 'Canned white beans or lentils', s: 'drain and eat, 15g per cup' },
+            { n: 'Sardines or mackerel', s: 'alternate omega-3 source' },
+            { n: 'Electrolyte packets', s: 'for golf days in the heat' }
+          ]}
+        ]
+      },
+      coop: {
+        storageKey: 'shop-coop-v1',
+        sections: [
+          { label: 'Proteins', items: [
+            { n: 'Eggs', s: 'pasture-raised if budget allows' },
+            { n: 'Chicken', s: 'whole bird or breasts, local farm' }
+          ]},
+          { label: 'Produce', items: [
+            { n: 'Sweet potatoes', s: 'fresh, 3–5' },
+            { n: 'Broccolini', s: '2–3 bunches' },
+            { n: 'Beets', s: 'bunch, with greens if possible' },
+            { n: 'Carrots', s: 'for kraut topping' },
+            { n: 'Fresh ginger', s: 'skin stays on for smoothies' },
+            { n: 'Garlic', s: 'fresh bulbs' }
+          ]},
+          { label: 'Fermented / Cultured', items: [
+            { n: 'Kimchi', s: 'local maker, fresher than packaged' },
+            { n: 'Kefir', s: 'grass-fed or local brand' },
+            { n: 'Sauerkraut', s: 'golden beet or carrot if they have it' }
+          ]},
+          { label: 'Other', items: [
+            { n: 'Nut butter', s: 'fresh-ground, almond or mixed' },
+            { n: 'Raw honey', s: 'local' },
+            { n: 'Miso paste', s: 'white or chickpea miso' },
+            { n: 'Nutritional yeast', s: '' }
+          ]}
+        ]
+      }
+    };
+
+    // ---------- Persistence (localStorage on this device) ----------
+    function loadChecks(key) {
+      try { return JSON.parse(localStorage.getItem(key)) || {}; }
+      catch (e) { return {}; }
+    }
+    function saveChecks(key, obj) {
+      try { localStorage.setItem(key, JSON.stringify(obj)); }
+      catch (e) { /* private mode: checks just won't persist */ }
+    }
+
+    // ---------- Render ----------
+    function renderStore(store) {
+      const cfg = SHOPPING[store];
+      const container = document.getElementById('list-' + store);
+      const checks = loadChecks(cfg.storageKey);
+      container.innerHTML = '';
+
+      cfg.sections.forEach((sec, si) => {
+        const lbl = document.createElement('div');
+        lbl.className = 'section-label';
+        lbl.textContent = sec.label;
+        container.appendChild(lbl);
+
+        sec.items.forEach((item, ii) => {
+          const id = store + '-' + si + '-' + ii;
+          const row = document.createElement('label');
+          row.className = 'shop-item' + (checks[id] ? ' checked' : '');
+          row.setAttribute('for', 'cb-' + id);
+
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.id = 'cb-' + id;
+          cb.checked = !!checks[id];
+          cb.addEventListener('change', () => {
+            const current = loadChecks(cfg.storageKey);
+            if (cb.checked) current[id] = true;
+            else delete current[id];
+            saveChecks(cfg.storageKey, current);
+            row.classList.toggle('checked', cb.checked);
+            updateProgress(store);
+          });
+
+          const text = document.createElement('span');
+          text.className = 'shop-text';
+          text.textContent = item.n;
+          if (item.s) {
+            const note = document.createElement('span');
+            note.className = 'shop-note';
+            note.textContent = item.s;
+            text.appendChild(note);
+          }
+
+          row.appendChild(cb);
+          row.appendChild(text);
+          container.appendChild(row);
+        });
+      });
+
+      updateProgress(store);
+    }
+
+    function updateProgress(store) {
+      const cfg = SHOPPING[store];
+      const total = cfg.sections.reduce((n, s) => n + s.items.length, 0);
+      const done = Object.keys(loadChecks(cfg.storageKey)).length;
+      document.getElementById('progress-' + store).textContent = done + ' / ' + total + ' in cart';
+    }
+
+    function resetStore(store) {
+      const cfg = SHOPPING[store];
+      const done = Object.keys(loadChecks(cfg.storageKey)).length;
+      if (done > 0 && !confirm('Clear all checked items on this list?')) return;
+      localStorage.removeItem(cfg.storageKey);
+      renderStore(store);
+    }
+
+    renderStore('costco');
+    renderStore('coop');
+  </script>
+</body>
+</html>
