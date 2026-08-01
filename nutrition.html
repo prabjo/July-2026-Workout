@@ -65,6 +65,14 @@
       justify-content: flex-end;
       margin-top: 12px;
     }
+    .combo-tag {
+      display: inline-block;
+      font-size: 0.72em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 2px;
+    }
   </style>
 </head>
 <body data-page="nutrition">
@@ -105,24 +113,24 @@
 
     <div class="card">
       <h2>Where the Protein Goes</h2>
-      <p class="muted">Splitting 165g across the day. Lunch is the one that's been getting shorted.</p>
+      <p class="muted">Splitting 165g across a 9am–7pm window. Four doses of ~40g beats two big ones.</p>
       <div class="food-row">
-        <div><div class="name">Breakfast</div><div class="subnote">smoothie or oats + yogurt</div></div>
-        <div>40–45g</div>
-      </div>
-      <div class="food-row">
-        <div><div class="name">Lunch</div><div class="subnote">make this the big one — 6 oz chicken minimum</div></div>
+        <div><div class="name">9:00 · Breakfast</div><div class="subnote">smoothie or oats + eggs</div></div>
         <div>45–50g</div>
       </div>
       <div class="food-row">
-        <div><div class="name">Dinner</div><div class="subnote">salmon, chicken, or beans + a second source</div></div>
-        <div>40–45g</div>
+        <div><div class="name">12:30 · Lunch</div><div class="subnote">make this the big one — 6 oz chicken minimum</div></div>
+        <div>45–50g</div>
       </div>
       <div class="food-row">
-        <div><div class="name">Snack</div><div class="subnote">cottage cheese, eggs, kefir</div></div>
+        <div><div class="name">3:30 · Snack</div><div class="subnote">cottage cheese, eggs, kefir</div></div>
         <div>20–25g</div>
       </div>
-      <div class="tip-box">💡 Eat protein first at every meal. Powder covers gaps but keep it under a third of the daily total — roughly two scoops max.</div>
+      <div class="food-row">
+        <div><div class="name">6:30 · Dinner</div><div class="subnote">salmon, chicken, or beans + a second source</div></div>
+        <div>40–45g</div>
+      </div>
+      <div class="tip-box">💡 Eat protein first at every meal. Keep the eating window at 10 hours — shrinking it costs you a feeding slot and makes 165g harder, not easier.</div>
     </div>
 
     <div class="card">
@@ -143,17 +151,241 @@
         <div><div class="name">Yoga / rest (Thu / Sun)</div><div class="subnote">baseline is fine</div></div>
         <div>baseline</div>
       </div>
-      <div class="tip-box">💡 Two weeks at 165g protein and 2,400 calories. If you're finishing full sessions and soreness clears in 24–36 hrs, it was fueling. If not, go to maintenance for two weeks before resuming the cut.</div>
+      <div class="tip-box">💡 If you train before 9am, move breakfast earlier that day. Training fasted then waiting two hours to eat is the worst combination while cutting.</div>
     </div>
 
     <div class="pill-row" style="margin-bottom:12px;">
-      <button class="pill active" onclick="showNutritionTab('groceries', this)">Groceries</button>
-      <button class="pill" onclick="showNutritionTab('shopping', this)">Shopping</button>
+      <button class="pill active" onclick="showNutritionTab('breakfast', this)">Breakfast</button>
       <button class="pill" onclick="showNutritionTab('recipes', this)">Recipes</button>
+      <button class="pill" onclick="showNutritionTab('groceries', this)">Groceries</button>
+      <button class="pill" onclick="showNutritionTab('shopping', this)">Shopping</button>
       <button class="pill" onclick="showNutritionTab('mixmatch', this)">Mix &amp; Match</button>
     </div>
 
-    <div id="groceries">
+    <div id="breakfast">
+      <div class="card">
+        <h2>How to Build One</h2>
+        <ul class="simple-list">
+          <li>Smoothie or bowl carries the fiber and the fermented serving</li>
+          <li>2 eggs on the side carry the last 12g of protein</li>
+          <li>One fruit, not three — the apple is enough sweetness</li>
+          <li>Add fat: nut butter, avocado, or hemp</li>
+          <li>Target 45–50g protein, 18–25g fiber</li>
+        </ul>
+        <div class="tip-box">💡 Every option below lands in the same range. Rotate them so you're not eating the same three plants every morning.</div>
+      </div>
+
+      <div class="card">
+        <span class="combo-tag">Option 1 · Blender</span>
+        <h2>Green Machine + 2 Eggs</h2>
+        <p class="muted">Your standing recipe, tuned. Makes 2 portions — numbers below are your half.</p>
+        <div class="section-label">Smoothie (makes 2)</div>
+        <ul class="simple-list">
+          <li>2 cups plain Greek yogurt</li>
+          <li>1 scoop protein powder</li>
+          <li>1 avocado</li>
+          <li>2 apples</li>
+          <li>1 handful frozen mango <em>(drop the banana — one fruit sugar source is plenty)</em></li>
+          <li>2 tbsp chia seeds</li>
+          <li>2 tbsp ground flaxseed</li>
+          <li>2 tbsp peanut or almond butter</li>
+          <li>2 handfuls spinach</li>
+          <li>Fresh ginger, skin on</li>
+          <li>Cinnamon</li>
+          <li>Coconut water to blend</li>
+        </ul>
+        <div class="section-label">On the side</div>
+        <ul class="simple-list">
+          <li>2 eggs, any style</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~50g</div>
+          <div class="macro-chip">Fiber: ~24g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 Celery is optional filler — spinach earns its spot, celery mostly adds water.</div>
+      </div>
+
+      <div class="card">
+        <span class="combo-tag">Option 2 · Blender</span>
+        <h2>Berry Cottage + 2 Eggs</h2>
+        <p class="muted">Higher protein, lower sugar. Best on lift days.</p>
+        <div class="section-label">Smoothie (single serving)</div>
+        <ul class="simple-list">
+          <li>1 cup cottage cheese <em>(28g — beats yogurt by 8g)</em></li>
+          <li>1 scoop protein powder</li>
+          <li>1 cup frozen blueberries</li>
+          <li>3 tbsp hemp hearts</li>
+          <li>1 tbsp chia seeds</li>
+          <li>1 handful spinach</li>
+          <li>Cinnamon</li>
+          <li>Kefir or milk to blend</li>
+        </ul>
+        <div class="section-label">On the side</div>
+        <ul class="simple-list">
+          <li>2 eggs</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~62g</div>
+          <div class="macro-chip">Fiber: ~18g</div>
+          <div class="macro-chip">Fermented: Yes ×2</div>
+        </div>
+        <div class="tip-box">💡 Cottage cheese and kefir are different microbial families — this one covers two fermented servings in a single glass.</div>
+      </div>
+
+      <div class="card">
+        <span class="combo-tag">Option 3 · Stovetop</span>
+        <h2>Oatmeal Bowl + 2 Eggs</h2>
+        <p class="muted">The no-blender day. Near parity with the smoothies.</p>
+        <ul class="simple-list">
+          <li>1/2 cup rolled oats</li>
+          <li>1 cup Greek yogurt, stirred in after cooking</li>
+          <li>1 tbsp chia seeds</li>
+          <li>1 tbsp ground flaxseed</li>
+          <li>1 cup blueberries + diced apple</li>
+          <li>Handful spinach stirred into the warm oats <em>(replaces the smoothie's greens — you won't taste it)</em></li>
+          <li>1 tbsp peanut butter</li>
+          <li>Cinnamon, drizzle of raw honey</li>
+          <li>2 eggs on the side</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~45g</div>
+          <div class="macro-chip">Fiber: ~20g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 Without the spinach and flax you lose the greens and one omega-3 source. Those two additions are what make this equal to the smoothie.</div>
+      </div>
+
+      <div class="card">
+        <span class="combo-tag">Option 4 · Make-Ahead</span>
+        <h2>Overnight Oats + Hard-Boiled Eggs</h2>
+        <p class="muted">Built the night before. For mornings that get away from you.</p>
+        <ul class="simple-list">
+          <li>1/2 cup oats</li>
+          <li>1 cup Greek yogurt</li>
+          <li>1 scoop protein powder</li>
+          <li>1 tbsp chia seeds</li>
+          <li>1 tbsp ground flaxseed</li>
+          <li>1 cup frozen blueberries <em>(thaw overnight in the jar)</em></li>
+          <li>Splash of kefir</li>
+          <li>2 hard-boiled eggs from the fridge batch</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~55g</div>
+          <div class="macro-chip">Fiber: ~18g</div>
+          <div class="macro-chip">Fermented: Yes ×2</div>
+        </div>
+        <div class="tip-box">💡 Boil six eggs Sunday. This is the option that keeps a rushed morning from becoming a 15g breakfast.</div>
+      </div>
+
+      <div class="card">
+        <span class="combo-tag">Option 5 · No Prep</span>
+        <h2>Savory Bowl</h2>
+        <p class="muted">When you don't want anything sweet.</p>
+        <ul class="simple-list">
+          <li>1 cup cottage cheese</li>
+          <li>3 eggs, scrambled or fried</li>
+          <li>1/2 avocado, sliced</li>
+          <li>1/2 cup kimchi</li>
+          <li>Handful spinach, wilted in the egg pan</li>
+          <li>Olive oil, salt, pepper</li>
+          <li>Whole grain toast if you want the carb</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~48g</div>
+          <div class="macro-chip">Fiber: ~11g</div>
+          <div class="macro-chip">Fermented: Yes ×2</div>
+        </div>
+        <div class="tip-box">💡 Lowest fiber of the five — make up for it at lunch with beans or lentils.</div>
+      </div>
+
+      <div class="card">
+        <h2>Vitamix Loading Order</h2>
+        <ul class="simple-list">
+          <li>1 · Liquid — coconut water, milk, or kefir</li>
+          <li>2 · Yogurt or cottage cheese</li>
+          <li>3 · Powder, ginger, nut butter</li>
+          <li>4 · Spinach</li>
+          <li>5 · Apple and avocado</li>
+          <li>6 · Frozen fruit on top — weight pushes everything down</li>
+          <li>7 · Chia and flax last, final 10 seconds</li>
+        </ul>
+        <div class="tip-box">💡 Start on variable 1, catch the vortex, then ramp to 10 over five seconds. Slamming to high is what causes the air pocket. Chia and flax gel fast and thicken the vortex — add them at the end.</div>
+      </div>
+    </div>
+
+    <div id="recipes" class="hidden">
+      <div class="card">
+        <h2>Lunch — The One That Needs Work</h2>
+        <ul class="simple-list">
+          <li>6 oz chicken <em>(not "a few pieces")</em></li>
+          <li>1 cup lentils, white beans, or black chickpeas</li>
+          <li>Brown rice or roti</li>
+          <li>Veg — okra, greens, beets</li>
+          <li>1/2 cup kimchi on the side</li>
+          <li>Olive oil or tahini for fat</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~60g</div>
+          <div class="macro-chip">Fiber: ~18g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+        <div class="tip-box">💡 The single biggest fix. Making lunch the largest protein meal closes most of the daily gap on its own.</div>
+      </div>
+
+      <div class="card">
+        <h2>Salmon Dinner</h2>
+        <ul class="simple-list">
+          <li>5–6 oz salmon — salt 20 min ahead, pull at 120–125°F</li>
+          <li>1 cup kale or broccolini</li>
+          <li>Roasted sweet potato or 4 mini potatoes, skin on</li>
+          <li>Lentils underneath, or white beans tossed with the greens</li>
+          <li>1 tbsp miso on the side or in broth</li>
+          <li>Beets — roast whole with skin on, rub the skin off after</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~50–55g</div>
+          <div class="macro-chip">Fiber: ~14–16g</div>
+          <div class="macro-chip">Fermented: Yes from miso</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Chickpea Pasta Bowl</h2>
+        <ul class="simple-list">
+          <li>2 oz chickpea pasta</li>
+          <li>Pesto</li>
+          <li>6 oz chicken or 2 eggs on top <em>(the version without this lands at 22g — too low)</em></li>
+          <li>1 cup broccoli or broccolini</li>
+          <li>1/2 avocado</li>
+          <li>Kraut or kimchi on the side</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~50g</div>
+          <div class="macro-chip">Fiber: ~22g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Rice + Black Chickpea Bowl</h2>
+        <ul class="simple-list">
+          <li>3/4 cup brown rice</li>
+          <li>1 cup black chickpeas</li>
+          <li>Second protein — chicken, tempeh, or 2 eggs</li>
+          <li>Roasted veg</li>
+          <li>Olive oil or tahini</li>
+          <li>Kimchi</li>
+        </ul>
+        <div class="macro-chip-wrap">
+          <div class="macro-chip">Protein: ~45g</div>
+          <div class="macro-chip">Fiber: ~20g</div>
+          <div class="macro-chip">Fermented: Yes</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="groceries" class="hidden">
       <div class="card">
         <h2>Staples</h2>
         <p class="muted">Approximate values per common serving.</p>
@@ -227,7 +459,11 @@
           <div>1 tbsp</div><div>2g</div><div>3g</div><div>2g</div><div class="tag-no">No</div>
         </div>
         <div class="food-row">
-          <div><div class="name">Oats</div><div class="subnote">overnight oats or smoothie</div></div>
+          <div><div class="name">Peanut / almond butter</div><div class="subnote">check label: nuts and salt only</div></div>
+          <div>2 tbsp</div><div>7g</div><div>7g</div><div>2g</div><div class="tag-no">No</div>
+        </div>
+        <div class="food-row">
+          <div><div class="name">Oats</div><div class="subnote">oatmeal or overnight oats</div></div>
           <div>1/2 cup dry</div><div>5g</div><div>27g</div><div>4g</div><div class="tag-no">No</div>
         </div>
         <div class="food-row">
@@ -235,7 +471,7 @@
           <div>1 medium</div><div>0g</div><div>25g</div><div>4g</div><div class="tag-no">No</div>
         </div>
         <div class="food-row">
-          <div><div class="name">Berries</div><div class="subnote">high-fiber fruit</div></div>
+          <div><div class="name">Berries</div><div class="subnote">high-fiber fruit, lowest sugar</div></div>
           <div>1 cup</div><div>1g</div><div>21g</div><div>6–8g</div><div class="tag-no">No</div>
         </div>
         <div class="food-row">
@@ -310,104 +546,16 @@
       </div>
     </div>
 
-    <div id="recipes" class="hidden">
-      <div class="card">
-        <h2>Smoothie</h2>
-        <ul class="simple-list">
-          <li>1 cup plain Greek yogurt</li>
-          <li>1 scoop protein powder</li>
-          <li>1–2 tbsp chia seeds</li>
-          <li>1 tbsp ground flaxseed</li>
-          <li>2 tbsp nut butter <em>(closes the calorie gap)</em></li>
-          <li>1 apple</li>
-          <li>1/2 cup frozen mango</li>
-          <li>1 handful spinach</li>
-          <li>Fresh ginger — skin on, just scrub it</li>
-          <li>Water, milk, or kefir to blend</li>
-        </ul>
-        <div class="section-label">Vitamix loading order</div>
-        <ul class="simple-list">
-          <li>1 · Liquid — water, milk, or kefir</li>
-          <li>2 · Greek yogurt</li>
-          <li>3 · Powder, ginger, nut butter</li>
-          <li>4 · Spinach</li>
-          <li>5 · Apple chunks</li>
-          <li>6 · Frozen mango on top — weight pushes everything down</li>
-          <li>7 · Chia and flax last, final 10 seconds</li>
-        </ul>
-        <div class="macro-chip-wrap">
-          <div class="macro-chip">Protein: ~45–50g</div>
-          <div class="macro-chip">Fiber: ~15–20g</div>
-          <div class="macro-chip">Fermented: Yes</div>
-        </div>
-        <div class="tip-box">💡 Start on variable 1, ramp to 10 over 5 seconds. Slamming to high is what causes the air pocket.</div>
-      </div>
-
-      <div class="card">
-        <h2>Oatmeal + Yogurt</h2>
-        <ul class="simple-list">
-          <li>1/2 cup oats</li>
-          <li>1 cup Greek yogurt</li>
-          <li>1 tbsp chia seeds</li>
-          <li>1 tsp ground flaxseed</li>
-          <li>1 egg on the side</li>
-          <li>1/2 to 1 cup blueberries + diced apple</li>
-          <li>Handful spinach stirred into the warm oats <em>(replaces the smoothie's greens)</em></li>
-          <li>Splash of milk or kefir if needed</li>
-        </ul>
-        <div class="macro-chip-wrap">
-          <div class="macro-chip">Protein: ~35–40g</div>
-          <div class="macro-chip">Fiber: ~18–20g</div>
-          <div class="macro-chip">Fermented: Yes</div>
-        </div>
-        <div class="tip-box">💡 Near-parity with the smoothie once you add the spinach and flax. Without them you lose the greens and one omega-3 source.</div>
-      </div>
-
-      <div class="card">
-        <h2>Lunch — The One That Needs Work</h2>
-        <ul class="simple-list">
-          <li>6 oz chicken <em>(not "a few pieces")</em></li>
-          <li>1 cup lentils, white beans, or black chickpeas</li>
-          <li>Brown rice or roti</li>
-          <li>Veg — okra, greens, beets</li>
-          <li>1/2 cup kimchi on the side</li>
-          <li>Olive oil or tahini for fat</li>
-        </ul>
-        <div class="macro-chip-wrap">
-          <div class="macro-chip">Protein: ~60g</div>
-          <div class="macro-chip">Fiber: ~18g</div>
-          <div class="macro-chip">Fermented: Yes</div>
-        </div>
-        <div class="tip-box">💡 This is the single biggest fix. Making lunch the largest protein meal closes most of the daily gap on its own.</div>
-      </div>
-
-      <div class="card">
-        <h2>Salmon Dinner</h2>
-        <ul class="simple-list">
-          <li>5–6 oz salmon — salt 20 min ahead, pull at 120–125°F</li>
-          <li>1 cup kale or broccolini</li>
-          <li>Roasted sweet potato or 4 mini potatoes, skin on</li>
-          <li>Lentils underneath, or white beans tossed with the greens</li>
-          <li>1 tbsp miso on the side or in broth</li>
-          <li>Beets — roast whole with skin on, rub the skin off after</li>
-        </ul>
-        <div class="macro-chip-wrap">
-          <div class="macro-chip">Protein: ~50–55g</div>
-          <div class="macro-chip">Fiber: ~14–16g</div>
-          <div class="macro-chip">Fermented: Yes from miso</div>
-        </div>
-      </div>
-    </div>
-
     <div id="mixmatch" class="hidden">
       <div class="card">
         <h2>Breakfast Formula</h2>
         <ul class="simple-list">
-          <li>Pick 1 protein anchor: 3 eggs, Greek yogurt, or cottage cheese</li>
-          <li>Add fiber: chia, hemp, flax, oats, berries, apple</li>
-          <li>Add fermented: yogurt or kefir</li>
-          <li>Add fat: nut butter or avocado</li>
-          <li>Target 40–45g protein</li>
+          <li>Base: Greek yogurt, cottage cheese, or oats</li>
+          <li>Always add 2 eggs — that's the last 12g</li>
+          <li>Fiber: chia, hemp, flax, berries, apple</li>
+          <li>Greens: spinach, blended or wilted</li>
+          <li>Fat: nut butter, avocado, or hemp</li>
+          <li>Target 45–50g protein</li>
         </ul>
       </div>
 
@@ -462,7 +610,7 @@
   <script src="nav.js"></script>
   <script>
     function showNutritionTab(id, btn) {
-      ['groceries', 'shopping', 'recipes', 'mixmatch'].forEach(x => {
+      ['breakfast', 'recipes', 'groceries', 'shopping', 'mixmatch'].forEach(x => {
         document.getElementById(x).classList.add('hidden');
       });
       document.getElementById(id).classList.remove('hidden');
@@ -495,8 +643,10 @@
             { n: 'Chia seeds', s: 'large bag' },
             { n: 'Hemp hearts', s: '10g protein per 3 tbsp' },
             { n: 'Ground flaxseed', s: '' },
+            { n: 'Peanut or almond butter', s: 'label should read nuts + salt only' },
             { n: 'Nuts', s: 'almonds or mixed — calories on golf days' },
             { n: 'Extra virgin olive oil', s: '' },
+            { n: 'Cinnamon', s: '' },
             { n: 'Sea salt', s: 'if low' },
             { n: 'Protein powder', s: 'look for NSF Certified for Sport' },
             { n: 'Pure maple syrup', s: '' }
@@ -506,6 +656,7 @@
             { n: 'Frozen broccoli', s: 'backup to fresh' }
           ]},
           { label: 'Specialty', items: [
+            { n: 'Coconut water', s: 'smoothie base' },
             { n: 'Canned black chickpeas', s: '2–3 cans as backup' },
             { n: 'Canned white beans or lentils', s: 'drain and eat, 15g per cup' },
             { n: 'Sardines or mackerel', s: 'alternate omega-3 source' },
@@ -517,7 +668,7 @@
         storageKey: 'shop-coop-v1',
         sections: [
           { label: 'Proteins', items: [
-            { n: 'Eggs', s: 'pasture-raised if budget allows' },
+            { n: 'Eggs', s: 'get extra — 2 with every breakfast' },
             { n: 'Chicken', s: 'whole bird or breasts, local farm' }
           ]},
           { label: 'Produce', items: [
