@@ -12,40 +12,52 @@
 
     <header class="hero">
       <h1>Weekly Workout</h1>
-      <p class="subtitle">Jul 18 – Jul 24, 2026 · 30–45 min</p>
+      <p class="subtitle">Recovery-first build · 5 training days · 2 golf walks</p>
     </header>
 
+    <div class="card">
+      <h2>The Week at a Glance</h2>
+      <div class="section-label">Why it's built this way</div>
+      <div class="exercise-row"><div><div class="ex-name">Mon · Run</div><div class="ex-note">Only run of the week, easy pace</div></div><div class="ex-sets run">3–4 mi</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Tue · Golf</div><div class="ex-note">Walk 18 — counts as active recovery</div></div><div class="ex-sets">~4.5 mi</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Wed · Lift A</div><div class="ex-note">Full body, the harder of the two</div></div><div class="ex-sets">45 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Thu · Yoga</div><div class="ex-note">Longest session of the week, no load</div></div><div class="ex-sets rest">40 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Fri · Golf</div><div class="ex-note">Walk 18</div></div><div class="ex-sets">~4.5 mi</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Sat · Lift B</div><div class="ex-note">Full body, pull-focused</div></div><div class="ex-sets">45 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Sun · Rest</div><div class="ex-note">Or weekend golf. Not both.</div></div><div class="ex-sets rest">—</div></div>
+      <div class="tip-box">💡 Two hard lifts with 3 days between them, not three crammed in. Add the third lift only after four straight weeks of finishing every session at 100%.</div>
+    </div>
+
     <div class="day-tabs">
-      <button class="tab active" onclick="showWorkoutDay('mon', this)">MON</button>
+      <button class="tab run" onclick="showWorkoutDay('mon', this)">MON</button>
       <button class="tab" onclick="showWorkoutDay('tue', this)">TUE</button>
-      <button class="tab run" onclick="showWorkoutDay('wed', this)">WED</button>
-      <button class="tab" onclick="showWorkoutDay('thu', this)">THU</button>
-      <button class="tab run" onclick="showWorkoutDay('fri', this)">FRI</button>
+      <button class="tab active" onclick="showWorkoutDay('wed', this)">WED</button>
+      <button class="tab rest" onclick="showWorkoutDay('thu', this)">THU</button>
+      <button class="tab" onclick="showWorkoutDay('fri', this)">FRI</button>
       <button class="tab" onclick="showWorkoutDay('sat', this)">SAT</button>
       <button class="tab rest" onclick="showWorkoutDay('sun', this)">SUN</button>
     </div>
 
-    <div id="mon">
+    <div id="mon" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge">LIFT</span><h2>Full Body Strength</h2></div>
-        <div class="section-label">Warm-Up · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">15 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
-        <div class="section-label">Main · 30 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div><div class="ex-note">Controlled down, drive up</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Bench Press</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">4 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div><div class="ex-note">Rope or V-bar attachment</div></div><div class="ex-sets">3 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div><div class="ex-note">Slow and controlled</div></div><div class="ex-sets">2 × 12 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Plank</div></div><div class="ex-sets">2 × 45s</div></div>
-        <div class="section-label">Cool-Down · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Couch Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Quads + Calves</div></div><div class="ex-sets">3 min</div></div>
-        <div class="tip-box">💡 Rest 75–90s between sets. Add 5 lbs when all reps feel easy. Triceps at the end keeps arms fresh for big lifts.</div>
+        <div class="card-header"><span class="badge run">RUN</span><h2>Easy Run</h2></div>
+        <div class="section-label">Pre-Run · 5 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div><div class="ex-note">Non-negotiable before any run</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">5 min</div></div>
+        <div class="section-label">Run</div>
+        <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">Conversational — you should be able to talk in full sentences</div></div><div class="ex-sets run">3–4 miles</div></div>
+        <div class="section-label">Post-Run · 10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Calf Stretch (straight + bent knee)</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Foam Roll Calves + Quads</div></div><div class="ex-sets">5 min</div></div>
+        <div class="section-label">Yoga · 10 min (short)</div>
+        <div class="exercise-row"><div><div class="ex-name">Downward Dog</div><div class="ex-note">Pedal the heels — doubles as calf work</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Low Lunge</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Reclined Twist</div></div><div class="ex-sets">90s each</div></div>
+        <div class="tip-box run">💡 Golf is tomorrow. Keep this run genuinely easy and do the foot work tonight — you're loading the feet two days running.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -57,25 +69,21 @@
 
     <div id="tue" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge pull">PULL</span><h2>Upper Pull Focus</h2></div>
-        <div class="section-label">Warm-Up · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div></div><div class="ex-sets">2 × 20</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Scapular Pull-Ups</div><div class="ex-note">Dead hang, shrug shoulder blades down</div></div><div class="ex-sets">2 × 8</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Arm Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="section-label">Main · 30 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Band-Assisted Pull-Ups</div><div class="ex-note">Full range — chin over bar, slow down</div></div><div class="ex-sets pull">4 × 6–8</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Pulldown (Wide Grip)</div><div class="ex-note">Pull to upper chest</div></div><div class="ex-sets pull">4 × 10–12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Seated Row</div><div class="ex-note">Squeeze shoulder blades</div></div><div class="ex-sets pull">3 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Pulldown (Close Grip)</div><div class="ex-note">More mid-back, stay upright</div></div><div class="ex-sets pull">3 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Face Pulls</div><div class="ex-note">Pull to face, elbows high</div></div><div class="ex-sets pull">3 × 15</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Overhead Tricep Extension</div><div class="ex-note">Cable or KB</div></div><div class="ex-sets">2 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Curl Bar Curls</div><div class="ex-note">Slow, no swinging</div></div><div class="ex-sets">2 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hanging Knee Raises</div></div><div class="ex-sets">3 × 12</div></div>
-        <div class="section-label">Cool-Down · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Stretch (hanging)</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Child's Pose</div></div><div class="ex-sets">2 min</div></div>
-        <div class="tip-box pull">💡 Pull-ups first while fresh. Biceps at the end because rows and pulldowns already hit them hard.</div>
+        <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
+        <p class="muted">Roughly 4.5 miles and 600–900 calories. Real work — eat for it.</p>
+        <div class="section-label">Before the Round · 8 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div><div class="ex-note">Club across shoulders, slow</div></div><div class="ex-sets">15 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div><div class="ex-note">Wakes up the back before the first tee</div></div><div class="ex-sets">2 × 15</div></div>
+        <div class="section-label">On Course</div>
+        <div class="exercise-row"><div><div class="ex-name">Fuel at the turn</div><div class="ex-note">Protein, not just a hot dog — jerky, nuts, or a shake</div></div><div class="ex-sets">~300 cal</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Water + electrolytes</div><div class="ex-note">Especially in Sacramento heat</div></div><div class="ex-sets">throughout</div></div>
+        <div class="section-label">After the Round · 10 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div><div class="ex-note">Hips take a beating over 18</div></div><div class="ex-sets">90s each</div></div>
+        <div class="tip-box">💡 If your feet are complaining after yesterday's run, take a cart today. Golf isn't your training stimulus — protecting the feet is what keeps you running at all.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -85,23 +93,27 @@
       </div>
     </div>
 
-    <div id="wed" class="hidden">
+    <div id="wed">
       <div class="card">
-        <div class="card-header"><span class="badge run">RUN</span><h2>Easy Run</h2></div>
-        <div class="section-label">Pre-Run · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">3 min</div></div>
-        <div class="section-label">Run</div>
-        <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">Conversational pace</div></div><div class="ex-sets run">4–5 miles</div></div>
-        <div class="section-label">Post-Run · 10 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Calf Stretch (straight + bent knee)</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Calves + Quads</div></div><div class="ex-sets">5 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Ice Feet if needed</div></div><div class="ex-sets">10 min</div></div>
-        <div class="tip-box run">💡 Easy means easy. If ankles feel off, cut to 3 miles. Never skip post-run foot work.</div>
+        <div class="card-header"><span class="badge">LIFT A</span><h2>Full Body — Push Emphasis</h2></div>
+        <div class="section-label">Warm-Up · 5 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">15 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
+        <div class="section-label">Main · 32 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div><div class="ex-note">Controlled down, drive up</div></div><div class="ex-sets">4 × 8–10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Barbell Bench Press</div></div><div class="ex-sets">4 × 8–10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">3 × 10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div><div class="ex-note">Hamstrings — pairs well with golf posture</div></div><div class="ex-sets">3 × 10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div><div class="ex-note">Rope or V-bar</div></div><div class="ex-sets">2 × 12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pallof Press</div><div class="ex-note">Anti-rotation — direct golf carryover</div></div><div class="ex-sets">3 × 12 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div></div><div class="ex-sets">2 × 12 each</div></div>
+        <div class="section-label">Cool-Down + Yoga · 8 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Couch Stretch</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Child's Pose + Supine Twist</div></div><div class="ex-sets">2 min</div></div>
+        <div class="tip-box">💡 Rest 90s between sets — take the full time. Finish all sets before adding weight. If you're leaving at 70%, the fix is on the nutrition page, not here.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -113,25 +125,22 @@
 
     <div id="thu" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge">LIFT</span><h2>Full Body Strength</h2></div>
-        <div class="section-label">Warm-Up · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">15 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
-        <div class="section-label">Main · 30 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Bench Press</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">4 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div><div class="ex-note">Rope or V-bar</div></div><div class="ex-sets">3 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div></div><div class="ex-sets">2 × 12 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Plank</div></div><div class="ex-sets">2 × 45s</div></div>
-        <div class="section-label">Cool-Down · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Couch Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Quads + Calves</div></div><div class="ex-sets">3 min</div></div>
-        <div class="tip-box">💡 Aim to beat Monday by 5 lbs on at least one lift.</div>
+        <div class="card-header"><span class="badge rest">YOGA</span><h2>Recovery Flow</h2></div>
+        <p class="muted">The only day with no load. This is what makes the rest of the week possible.</p>
+        <div class="section-label">Flow · 25 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Downward Dog to Cobra</div></div><div class="ex-sets">8 reps</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Low Lunge to Half Split</div><div class="ex-note">Hip flexors + hamstrings together</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div><div class="ex-note">Thoracic rotation — helps the backswing</div></div><div class="ex-sets">90s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">3 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
+        <div class="section-label">Recovery Add-Ons</div>
+        <div class="exercise-row"><div><div class="ex-name">Foam Roll Full Body</div></div><div class="ex-sets">10 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sauna</div></div><div class="ex-sets">15 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Theragun</div><div class="ex-note">Quads, calves, glutes</div></div><div class="ex-sets">10 min</div></div>
+        <div class="tip-box rest">💡 Keep this restorative, not power yoga. A hard vinyasa here is a fourth training day in disguise and defeats the point.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -143,21 +152,21 @@
 
     <div id="fri" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge run">RUN</span><h2>Workout Run</h2></div>
-        <div class="section-label">Pre-Run · 5 min</div>
+        <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
+        <p class="muted">Legs should feel fresh — yesterday was yoga only.</p>
+        <div class="section-label">Before the Round · 8 min</div>
         <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">3 min</div></div>
-        <div class="section-label">Run Options — Pick One</div>
-        <div class="exercise-row"><div><div class="ex-name">Option A · Easy Miles</div><div class="ex-note">If legs are tired from Thu lift</div></div><div class="ex-sets run">4 miles easy</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Option B · Tempo</div><div class="ex-note">10 min easy · 20 min comfortably hard · 10 min easy</div></div><div class="ex-sets run">4–5 miles</div></div>
-        <div class="section-label">Post-Run · 10 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div></div><div class="ex-sets">15 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div></div><div class="ex-sets">2 × 15</div></div>
+        <div class="section-label">On Course</div>
+        <div class="exercise-row"><div><div class="ex-name">Fuel at the turn</div><div class="ex-note">Protein-forward</div></div><div class="ex-sets">~300 cal</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Water + electrolytes</div></div><div class="ex-sets">throughout</div></div>
+        <div class="section-label">After the Round · 10 min</div>
         <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Calves + Quads</div></div><div class="ex-sets">5 min</div></div>
-        <div class="tip-box run">💡 Alternate weekly: easy Friday, then tempo Friday. Tired legs = easy day, no guilt.</div>
+        <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+        <div class="tip-box">💡 Lift B is tomorrow. Eat a real dinner tonight — walking 18 on top of a deficit is where Saturday sessions go to die.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -169,30 +178,25 @@
 
     <div id="sat" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge">CIRCUIT</span><h2>KB + Pull-Up Circuit</h2></div>
+        <div class="card-header"><span class="badge pull">LIFT B</span><h2>Full Body — Pull Emphasis</h2></div>
         <div class="section-label">Warm-Up · 5 min</div>
         <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Inchworms</div></div><div class="ex-sets">8 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="section-label">Circuit · 4 Rounds (40s on / 20s off)</div>
-        <div class="exercise-row"><div><div class="ex-name">KB Swings (45 lb)</div></div><div class="ex-sets">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band-Assisted Pull-Ups</div></div><div class="ex-sets pull">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Push-Ups</div></div><div class="ex-sets">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Goblet Squat (KB 35)</div></div><div class="ex-sets">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div></div><div class="ex-sets">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Reverse Lunges (KB 35 each)</div></div><div class="ex-sets">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Pulldown or Renegade Rows</div></div><div class="ex-sets pull">40s</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Plank Hold</div></div><div class="ex-sets">40s</div></div>
-        <div class="section-label">Rest 90s between rounds</div>
-        <div class="section-label">Finisher</div>
-        <div class="exercise-row"><div><div class="ex-name">50 KB Swings (35 lb)</div><div class="ex-note">Break as needed</div></div><div class="ex-sets">1 set</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Max Pull-Ups</div><div class="ex-note">Band-assisted near failure</div></div><div class="ex-sets pull">1 set</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hollow Body Hold</div></div><div class="ex-sets">3 × 30s</div></div>
-        <div class="section-label">Cool-Down · 5 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Scapular Pull-Ups</div><div class="ex-note">Dead hang, shrug blades down</div></div><div class="ex-sets">2 × 8</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Inchworms + Hip Circles</div></div><div class="ex-sets">8 / 10 each</div></div>
+        <div class="section-label">Main · 32 min</div>
+        <div class="exercise-row"><div><div class="ex-name">Band-Assisted Pull-Ups</div><div class="ex-note">Chin over bar, slow down</div></div><div class="ex-sets pull">4 × 6–8</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Trap Bar or Conventional Deadlift</div><div class="ex-note">Heavy hinge — the one Wed doesn't cover</div></div><div class="ex-sets">3 × 5–6</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Lat Pulldown (Wide Grip)</div></div><div class="ex-sets pull">3 × 10–12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Bulgarian Split Squat</div><div class="ex-note">Single leg — carries over to walking 18</div></div><div class="ex-sets">3 × 10 each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Cable Seated Row</div></div><div class="ex-sets pull">3 × 12</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Face Pulls</div><div class="ex-note">Elbows high, undoes desk posture</div></div><div class="ex-sets pull">3 × 15</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Curl Bar Curls</div><div class="ex-note">Slow, no swinging</div></div><div class="ex-sets">2 × 10</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Hanging Knee Raises</div></div><div class="ex-sets">3 × 12</div></div>
+        <div class="section-label">Cool-Down + Yoga · 8 min</div>
         <div class="exercise-row"><div><div class="ex-name">Lat Stretch (hanging)</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
-        <div class="tip-box pull">💡 Pull-ups in every round. Mix cable tower and lat pulldown if needed.</div>
+        <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div></div><div class="ex-sets">60s each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Child's Pose</div></div><div class="ex-sets">2 min</div></div>
+        <div class="tip-box pull">💡 Pull-ups first while fresh. Biceps last — rows and pulldowns already hit them.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -204,24 +208,19 @@
 
     <div id="sun" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge rest">RECOVER</span><h2>Long Run or Full Rest</h2></div>
-        <div class="section-label">Option A — Long Run</div>
-        <div class="exercise-row"><div><div class="ex-name">Easy Long Run</div><div class="ex-note">Very easy pace</div></div><div class="ex-sets run">5–7 miles</div></div>
-        <div class="section-label">Option B — Active Recovery</div>
-        <div class="exercise-row"><div><div class="ex-name">Walk</div></div><div class="ex-sets">20–30 min</div></div>
-        <div class="section-label">Mobility Flow · 20 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Full Body</div></div><div class="ex-sets">10 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Downward Dog to Cobra</div></div><div class="ex-sets">8 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">3 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="card-header"><span class="badge rest">REST</span><h2>Off Day — Pick One</h2></div>
+        <div class="section-label">Option A — Full Rest (default)</div>
+        <div class="exercise-row"><div><div class="ex-name">Walk</div><div class="ex-note">Easy, with the family</div></div><div class="ex-sets">20–30 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Gentle Yoga</div></div><div class="ex-sets">15 min</div></div>
+        <div class="section-label">Option B — Weekend Golf</div>
+        <div class="exercise-row"><div><div class="ex-name">Golf, cart or walk</div><div class="ex-note">Take a cart if you walked both Tue and Fri</div></div><div class="ex-sets">18 holes</div></div>
+        <div class="section-label">Option C — Third Lift</div>
+        <div class="exercise-row"><div><div class="ex-name">KB + Circuit</div><div class="ex-note">Unlock only after 4 weeks of complete sessions</div></div><div class="ex-sets">30 min</div></div>
+        <div class="section-label">Yoga · 15 min</div>
         <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
-        <div class="section-label">Recovery</div>
-        <div class="exercise-row"><div><div class="ex-name">Sauna</div></div><div class="ex-sets">15 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cold Plunge</div></div><div class="ex-sets">2–3 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Theragun</div><div class="ex-note">Quads, calves, glutes</div></div><div class="ex-sets">10 min</div></div>
-        <div class="tip-box rest">💡 Sunday is sacred. The mobility keeps you running and lifting pain-free all week.</div>
+        <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
+        <div class="tip-box rest">💡 Pick one, not two. You already trained or walked five days this week. The recovery is the program, not a break from it.</div>
       </div>
       <div class="foot-box">
         <div class="section-label">Plantar Fasciitis — Every Day</div>
@@ -229,6 +228,15 @@
         <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
         <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>Yoga — How Much, When</h2>
+      <div class="exercise-row"><div><div class="ex-name">Lift and run days</div><div class="ex-note">Tacked onto the cool-down, restorative only</div></div><div class="ex-sets">8–10 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Golf days</div><div class="ex-note">Pre-round mobility + post-round hips</div></div><div class="ex-sets">10 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Thursday</div><div class="ex-note">The real session</div></div><div class="ex-sets rest">25–40 min</div></div>
+      <div class="exercise-row"><div><div class="ex-name">Sunday</div><div class="ex-note">Gentle, optional</div></div><div class="ex-sets rest">15 min</div></div>
+      <div class="tip-box rest">💡 Daily yoga is fine — as long as only one session per week is hard. Everything else is mobility attached to another workout.</div>
     </div>
 
     <p class="footer-note">Central nav is shared through nav.js.</p>
