@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weekly Workout</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .alt-block {
+      border-left: 3px solid rgba(128,128,128,0.3);
+      padding-left: 12px;
+      margin-top: 6px;
+    }
+    .opt-tag {
+      display: inline-block;
+      font-size: 0.72em;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      margin-bottom: 2px;
+    }
+  </style>
 </head>
 <body data-page="workout">
   <div class="page-wrap">
@@ -12,231 +27,476 @@
 
     <header class="hero">
       <h1>Weekly Workout</h1>
-      <p class="subtitle">Recovery-first build · 5 training days · 2 golf walks</p>
+      <p class="subtitle">Recovery-first build · 2 lifts · 1 run · low-intensity days between</p>
     </header>
 
-    <div class="card">
-      <h2>The Week at a Glance</h2>
-      <div class="section-label">Why it's built this way</div>
-      <div class="exercise-row"><div><div class="ex-name">Mon · Run</div><div class="ex-note">Only run of the week, easy pace</div></div><div class="ex-sets run">3–4 mi</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Tue · Golf</div><div class="ex-note">Walk 18 — counts as active recovery</div></div><div class="ex-sets">~4.5 mi</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Wed · Lift A</div><div class="ex-note">Full body, the harder of the two</div></div><div class="ex-sets">45 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Thu · Yoga</div><div class="ex-note">Longest session of the week, no load</div></div><div class="ex-sets rest">40 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Fri · Golf</div><div class="ex-note">Walk 18</div></div><div class="ex-sets">~4.5 mi</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Sat · Lift B</div><div class="ex-note">Full body, pull-focused</div></div><div class="ex-sets">45 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Sun · Rest</div><div class="ex-note">Or weekend golf. Not both.</div></div><div class="ex-sets rest">—</div></div>
-      <div class="tip-box">💡 Two hard lifts with 3 days between them, not three crammed in. Add the third lift only after four straight weeks of finishing every session at 100%.</div>
+    <div class="pill-row" style="margin-bottom:12px;">
+      <button class="pill active" onclick="showWeek('home-week', this)">Home Week</button>
+      <button class="pill" onclick="showWeek('travel-week', this)">Travel Week</button>
     </div>
 
-    <div class="day-tabs">
-      <button class="tab run" onclick="showWorkoutDay('mon', this)">MON</button>
-      <button class="tab" onclick="showWorkoutDay('tue', this)">TUE</button>
-      <button class="tab active" onclick="showWorkoutDay('wed', this)">WED</button>
-      <button class="tab rest" onclick="showWorkoutDay('thu', this)">THU</button>
-      <button class="tab" onclick="showWorkoutDay('fri', this)">FRI</button>
-      <button class="tab" onclick="showWorkoutDay('sat', this)">SAT</button>
-      <button class="tab rest" onclick="showWorkoutDay('sun', this)">SUN</button>
-    </div>
-
-    <div id="mon" class="hidden">
+    <div id="home-week">
       <div class="card">
-        <div class="card-header"><span class="badge run">RUN</span><h2>Easy Run</h2></div>
-        <div class="section-label">Pre-Run · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div><div class="ex-note">Non-negotiable before any run</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">5 min</div></div>
-        <div class="section-label">Run</div>
-        <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">Conversational — you should be able to talk in full sentences</div></div><div class="ex-sets run">3–4 miles</div></div>
-        <div class="section-label">Post-Run · 10 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Calf Stretch (straight + bent knee)</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Calves + Quads</div></div><div class="ex-sets">5 min</div></div>
-        <div class="section-label">Yoga · 10 min (short)</div>
-        <div class="exercise-row"><div><div class="ex-name">Downward Dog</div><div class="ex-note">Pedal the heels — doubles as calf work</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Low Lunge</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Reclined Twist</div></div><div class="ex-sets">90s each</div></div>
-        <div class="tip-box run">💡 Golf is tomorrow. Keep this run genuinely easy and do the foot work tonight — you're loading the feet two days running.</div>
+        <h2>The Week at a Glance</h2>
+        <div class="exercise-row"><div><div class="ex-name">Mon · Run</div><div class="ex-note">Only run of the week, easy pace</div></div><div class="ex-sets run">3–4 mi</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Tue · Golf</div><div class="ex-note">Walk 18 — or the no-golf alternative</div></div><div class="ex-sets">~4.5 mi</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Wed · Lift A</div><div class="ex-note">Full body, push emphasis</div></div><div class="ex-sets">45 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Thu · Yoga</div><div class="ex-note">Longest session, no load</div></div><div class="ex-sets rest">40 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Fri · Golf</div><div class="ex-note">Walk 18 — or the no-golf alternative</div></div><div class="ex-sets">~4.5 mi</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sat · Lift B</div><div class="ex-note">Full body, pull emphasis</div></div><div class="ex-sets">45 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sun · Rest</div><div class="ex-note">Pick one option, not two</div></div><div class="ex-sets rest">—</div></div>
+        <div class="tip-box">💡 Two hard lifts, three days apart. Everything on Tue and Fri stays low intensity — those days protect Wed and Sat, they don't compete with them.</div>
       </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
 
-    <div id="tue" class="hidden">
+      <div class="day-tabs">
+        <button class="tab run" onclick="showHomeDay('mon', this)">MON</button>
+        <button class="tab" onclick="showHomeDay('tue', this)">TUE</button>
+        <button class="tab active" onclick="showHomeDay('wed', this)">WED</button>
+        <button class="tab rest" onclick="showHomeDay('thu', this)">THU</button>
+        <button class="tab" onclick="showHomeDay('fri', this)">FRI</button>
+        <button class="tab" onclick="showHomeDay('sat', this)">SAT</button>
+        <button class="tab rest" onclick="showHomeDay('sun', this)">SUN</button>
+      </div>
+
+      <div id="mon" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge run">RUN</span><h2>Easy Run</h2></div>
+          <div class="section-label">Pre-Run · 5 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div><div class="ex-note">Non-negotiable before any run</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Ankle Circles</div></div><div class="ex-sets">20 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">5 min</div></div>
+          <div class="section-label">Run</div>
+          <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">Conversational — full sentences without gasping</div></div><div class="ex-sets run">3–4 miles</div></div>
+          <div class="section-label">Post-Run · 10 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch (straight + bent knee)</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Foam Roll Calves + Quads</div></div><div class="ex-sets">5 min</div></div>
+          <div class="section-label">Yoga · 10 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Downward Dog</div><div class="ex-note">Pedal the heels — doubles as calf work</div></div><div class="ex-sets">2 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Low Lunge</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Reclined Twist</div></div><div class="ex-sets">90s each</div></div>
+          <div class="tip-box run">💡 Sacramento heat: over 85°F, run before 8am or move it to the treadmill. Heat turns an easy run into a hard one without you noticing.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="tue" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
+          <p class="muted">Roughly 4.5 miles and 600–900 calories. Real work — eat for it.</p>
+          <div class="section-label">Before the Round · 8 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div><div class="ex-note">Club across shoulders, slow</div></div><div class="ex-sets">15 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div></div><div class="ex-sets">2 × 15</div></div>
+          <div class="section-label">On Course</div>
+          <div class="exercise-row"><div><div class="ex-name">Fuel at the turn</div><div class="ex-note">Protein-forward — jerky, nuts, or a shake</div></div><div class="ex-sets">~300 cal</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Water + electrolytes</div></div><div class="ex-sets">throughout</div></div>
+          <div class="section-label">After the Round · 10 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+          <div class="tip-box">💡 Feet sore from yesterday's run? Take a cart. Golf isn't the training stimulus — protecting the feet is what keeps you running at all.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="badge rest">NO GOLF</span><h2>Alternatives — Pick One</h2></div>
+          <p class="muted">Keep it low intensity. Lift A is tomorrow.</p>
+          <div class="alt-block">
+            <span class="opt-tag">Option A · default</span>
+            <div class="section-label">Zone 2 · 45 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Incline Treadmill Walk</div><div class="ex-note">10–12% grade, 3.0–3.5 mph. Closest match to walking 18.</div></div><div class="ex-sets">45 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Or Bike / Elliptical</div><div class="ex-note">Nose-breathing pace the whole way</div></div><div class="ex-sets">45 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Core Finisher</div><div class="ex-note">Pallof press, dead bugs, side plank</div></div><div class="ex-sets">10 min</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option B · golf-specific</span>
+            <div class="section-label">Range + Rotation · 60 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Range Session</div><div class="ex-note">Driver angle of attack work — quality over bucket size</div></div><div class="ex-sets">45 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Cable Chops (high to low)</div></div><div class="ex-sets">3 × 12 each</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Pallof Press</div><div class="ex-note">Anti-rotation, direct swing carryover</div></div><div class="ex-sets">3 × 12 each</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Thoracic Rotations + Thread the Needle</div></div><div class="ex-sets">90s each</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option C · if the week is heavy</span>
+            <div class="section-label">Walk + Mobility · 40 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Outdoor Walk</div><div class="ex-note">Take the dog, no pace target</div></div><div class="ex-sets">30 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Hip + Calf Mobility</div></div><div class="ex-sets">10 min</div></div>
+          </div>
+          <div class="tip-box">💡 Do not turn this into a third lift day. Wed and Sat are the lifts — an extra hard session here is exactly what buried you before.</div>
+        </div>
+
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="wed">
+        <div class="card">
+          <div class="card-header"><span class="badge">LIFT A</span><h2>Full Body — Push Emphasis</h2></div>
+          <div class="section-label">Warm-Up · 5 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">15 reps</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
+          <div class="section-label">Main · 32 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div><div class="ex-note">Controlled down, drive up</div></div><div class="ex-sets">4 × 8–10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Barbell Bench Press</div></div><div class="ex-sets">4 × 8–10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">3 × 10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div><div class="ex-note">Hamstrings — pairs well with golf posture</div></div><div class="ex-sets">3 × 10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div></div><div class="ex-sets">2 × 12</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Pallof Press</div><div class="ex-note">Anti-rotation — direct golf carryover</div></div><div class="ex-sets">3 × 12 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div></div><div class="ex-sets">2 × 12 each</div></div>
+          <div class="section-label">Cool-Down + Yoga · 8 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Couch Stretch</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Child's Pose + Supine Twist</div></div><div class="ex-sets">2 min</div></div>
+          <div class="tip-box">💡 Rest 90s between sets — take the full time. Finish all sets before adding weight. If you're leaving at 70%, the fix is on the nutrition page, not here.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="thu" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge rest">YOGA</span><h2>Recovery Flow</h2></div>
+          <p class="muted">The only day with no load. This is what makes the rest of the week possible.</p>
+          <div class="section-label">Flow · 25 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Downward Dog to Cobra</div></div><div class="ex-sets">8 reps</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Low Lunge to Half Split</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div><div class="ex-note">Thoracic rotation — helps the backswing</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">3 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
+          <div class="section-label">Recovery Add-Ons</div>
+          <div class="exercise-row"><div><div class="ex-name">Foam Roll Full Body</div></div><div class="ex-sets">10 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Sauna</div></div><div class="ex-sets">15 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Theragun</div><div class="ex-note">Quads, calves, glutes</div></div><div class="ex-sets">10 min</div></div>
+          <div class="tip-box rest">💡 Restorative, not power yoga. A hard vinyasa here is a fourth training day in disguise.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="fri" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
+          <p class="muted">Legs should feel fresh — yesterday was yoga only.</p>
+          <div class="section-label">Before the Round · 8 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div></div><div class="ex-sets">15 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div></div><div class="ex-sets">2 × 15</div></div>
+          <div class="section-label">After the Round · 10 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
+          <div class="tip-box">💡 Lift B is tomorrow. Eat a real dinner tonight — walking 18 on top of a deficit is where Saturday sessions go to die.</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="badge rest">NO GOLF</span><h2>Alternatives — Pick One</h2></div>
+          <p class="muted">Lift B is tomorrow, so nothing that leaves the legs cooked.</p>
+          <div class="alt-block">
+            <span class="opt-tag">Option A · default</span>
+            <div class="section-label">Zone 2 · 45 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Incline Treadmill Walk or Bike</div><div class="ex-note">Same as Tuesday's Option A</div></div><div class="ex-sets">45 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Core + Hip Work</div></div><div class="ex-sets">10 min</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option B · second run</span>
+            <div class="section-label">Easy Miles · 30 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">Only if feet have been quiet all week. Never on back-to-back days.</div></div><div class="ex-sets run">3 miles</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Full post-run foot protocol</div></div><div class="ex-sets">10 min</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option C</span>
+            <div class="section-label">Yoga + Sauna · 40 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Restorative Flow</div><div class="ex-note">Best pick if Wed's lift left you sore</div></div><div class="ex-sets rest">25 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Sauna</div></div><div class="ex-sets">15 min</div></div>
+          </div>
+          <div class="tip-box">💡 Option B is the only place an extra run belongs. If you took it, Sunday is a hard rest day — no exceptions.</div>
+        </div>
+
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="sat" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge pull">LIFT B</span><h2>Full Body — Pull Emphasis</h2></div>
+          <div class="section-label">Warm-Up · 5 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Scapular Pull-Ups</div></div><div class="ex-sets">2 × 8</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Inchworms + Hip Circles</div></div><div class="ex-sets">8 / 10 each</div></div>
+          <div class="section-label">Main · 32 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Band-Assisted Pull-Ups</div><div class="ex-note">Chin over bar, slow down</div></div><div class="ex-sets pull">4 × 6–8</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Trap Bar or Conventional Deadlift</div><div class="ex-note">Heavy hinge — the one Wed doesn't cover</div></div><div class="ex-sets">3 × 5–6</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Lat Pulldown (Wide Grip)</div></div><div class="ex-sets pull">3 × 10–12</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Bulgarian Split Squat</div><div class="ex-note">Single leg — carries over to walking 18</div></div><div class="ex-sets">3 × 10 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Cable Seated Row</div></div><div class="ex-sets pull">3 × 12</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Face Pulls</div></div><div class="ex-sets pull">3 × 15</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Curl Bar Curls</div></div><div class="ex-sets">2 × 10</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Hanging Knee Raises</div></div><div class="ex-sets">3 × 12</div></div>
+          <div class="section-label">Cool-Down + Yoga · 8 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Lat Stretch (hanging)</div></div><div class="ex-sets">60s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div></div><div class="ex-sets">60s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Child's Pose</div></div><div class="ex-sets">2 min</div></div>
+          <div class="tip-box pull">💡 Pull-ups first while fresh. Biceps last — rows and pulldowns already hit them.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="sun" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge rest">REST</span><h2>Off Day — Pick One, Not Two</h2></div>
+          <div class="section-label">Option A — Full Rest (default)</div>
+          <div class="exercise-row"><div><div class="ex-name">Walk</div><div class="ex-note">Easy, with the family</div></div><div class="ex-sets">20–30 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Gentle Yoga</div></div><div class="ex-sets">15 min</div></div>
+          <div class="section-label">Option B — Weekend Golf</div>
+          <div class="exercise-row"><div><div class="ex-name">Golf, cart or walk</div><div class="ex-note">Take a cart if you walked both Tue and Fri</div></div><div class="ex-sets">18 holes</div></div>
+          <div class="section-label">Option C — Third Lift</div>
+          <div class="exercise-row"><div><div class="ex-name">KB + Circuit</div><div class="ex-note">Unlock only after 4 weeks of complete sessions</div></div><div class="ex-sets">30 min</div></div>
+          <div class="section-label">Yoga · 15 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
+          <div class="tip-box rest">💡 Golf or the third lift — never both on the same Sunday. You already trained or walked five days this week.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
       <div class="card">
-        <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
-        <p class="muted">Roughly 4.5 miles and 600–900 calories. Real work — eat for it.</p>
-        <div class="section-label">Before the Round · 8 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div><div class="ex-note">Club across shoulders, slow</div></div><div class="ex-sets">15 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div><div class="ex-note">Wakes up the back before the first tee</div></div><div class="ex-sets">2 × 15</div></div>
-        <div class="section-label">On Course</div>
-        <div class="exercise-row"><div><div class="ex-name">Fuel at the turn</div><div class="ex-note">Protein, not just a hot dog — jerky, nuts, or a shake</div></div><div class="ex-sets">~300 cal</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Water + electrolytes</div><div class="ex-note">Especially in Sacramento heat</div></div><div class="ex-sets">throughout</div></div>
-        <div class="section-label">After the Round · 10 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div><div class="ex-note">Hips take a beating over 18</div></div><div class="ex-sets">90s each</div></div>
-        <div class="tip-box">💡 If your feet are complaining after yesterday's run, take a cart today. Golf isn't your training stimulus — protecting the feet is what keeps you running at all.</div>
-      </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        <h2>Yoga — How Much, When</h2>
+        <div class="exercise-row"><div><div class="ex-name">Lift and run days</div><div class="ex-note">Tacked onto the cool-down, restorative only</div></div><div class="ex-sets">8–10 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Golf days</div><div class="ex-note">Pre-round mobility + post-round hips</div></div><div class="ex-sets">10 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Thursday</div><div class="ex-note">The real session</div></div><div class="ex-sets rest">25–40 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sunday</div><div class="ex-note">Gentle, optional</div></div><div class="ex-sets rest">15 min</div></div>
+        <div class="tip-box rest">💡 Daily yoga is fine — as long as only one session per week is hard.</div>
       </div>
     </div>
 
-    <div id="wed">
+    <div id="travel-week" class="hidden">
       <div class="card">
-        <div class="card-header"><span class="badge">LIFT A</span><h2>Full Body — Push Emphasis</h2></div>
-        <div class="section-label">Warm-Up · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Bodyweight Squat</div></div><div class="ex-sets">15 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts + Arm Circles</div></div><div class="ex-sets">10 each</div></div>
-        <div class="section-label">Main · 32 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div><div class="ex-note">Controlled down, drive up</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Bench Press</div></div><div class="ex-sets">4 × 8–10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div><div class="ex-note">Hamstrings — pairs well with golf posture</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Tricep Pushdowns</div><div class="ex-note">Rope or V-bar</div></div><div class="ex-sets">2 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pallof Press</div><div class="ex-note">Anti-rotation — direct golf carryover</div></div><div class="ex-sets">3 × 12 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Dead Bugs</div></div><div class="ex-sets">2 × 12 each</div></div>
-        <div class="section-label">Cool-Down + Yoga · 8 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Couch Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Child's Pose + Supine Twist</div></div><div class="ex-sets">2 min</div></div>
-        <div class="tip-box">💡 Rest 90s between sets — take the full time. Finish all sets before adding weight. If you're leaving at 70%, the fix is on the nutrition page, not here.</div>
+        <h2>Travel Week — Out Mon, Back Thu Night</h2>
+        <p class="muted">Same shape as a home week: 2 lifts, 1 run, everything else low intensity. Thursday is written off on purpose.</p>
+        <div class="exercise-row"><div><div class="ex-name">Mon · Lift A</div><div class="ex-note">Home gym before the flight, or hotel gym that evening</div></div><div class="ex-sets">35–45 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Tue · Zone 2</div><div class="ex-note">Hotel gym — replaces golf</div></div><div class="ex-sets">40 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Wed · Run</div><div class="ex-note">Outside if the heat allows</div></div><div class="ex-sets run">3–4 mi</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Thu · Travel</div><div class="ex-note">Mobility only. No session.</div></div><div class="ex-sets rest">15 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Fri · Home</div><div class="ex-note">Golf or the no-golf alternative</div></div><div class="ex-sets">—</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sat · Lift B</div><div class="ex-note">Back in your own gym</div></div><div class="ex-sets">45 min</div></div>
+        <div class="exercise-row"><div><div class="ex-name">Sun · Rest</div></div><div class="ex-sets rest">—</div></div>
+        <div class="tip-box">💡 Two lifts land Mon and Sat — six days apart on the outbound side, which is fine. Don't try to squeeze a third in Tue or Wed to compensate.</div>
       </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
 
-    <div id="thu" class="hidden">
+      <div class="day-tabs">
+        <button class="tab active" onclick="showTravelDay('t-mon', this)">MON</button>
+        <button class="tab" onclick="showTravelDay('t-tue', this)">TUE</button>
+        <button class="tab run" onclick="showTravelDay('t-wed', this)">WED</button>
+        <button class="tab rest" onclick="showTravelDay('t-thu', this)">THU</button>
+        <button class="tab" onclick="showTravelDay('t-fri', this)">FRI</button>
+      </div>
+
+      <div id="t-mon">
+        <div class="card">
+          <div class="card-header"><span class="badge">LIFT A</span><h2>Monday — Two Windows</h2></div>
+          <p class="muted">Take the morning if the flight is late enough. Evening is the backup, not the plan.</p>
+          <div class="alt-block">
+            <span class="opt-tag">Window 1 · home gym, before the flight</span>
+            <div class="section-label">Condensed Full Body · 35 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Warm-Up</div><div class="ex-note">Jump rope, bodyweight squats, band pull-aparts</div></div><div class="ex-sets">4 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Barbell Back Squat</div></div><div class="ex-sets">3 × 8</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Bench Press</div></div><div class="ex-sets">3 × 8</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Barbell Row</div></div><div class="ex-sets">3 × 10</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Romanian Deadlift</div></div><div class="ex-sets">2 × 10</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Overhead Press</div></div><div class="ex-sets">2 × 10</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Pallof Press + Dead Bugs</div></div><div class="ex-sets">2 rounds</div></div>
+            <div class="tip-box">💡 Cut sets, not exercises. Three-quarters of Lift A beats a skipped session, and you'll sit for six hours after — the squat and hinge work matter more than the arms.</div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Window 1b · flight too early</span>
+            <div class="section-label">Easy Run Instead · 30 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Easy Run</div><div class="ex-note">If you take this, Wednesday becomes the hotel lift</div></div><div class="ex-sets run">3 miles</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Foot protocol</div></div><div class="ex-sets">8 min</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Window 2 · hotel gym, evening arrival</span>
+            <div class="section-label">Dumbbell Full Body · 35 min</div>
+            <div class="exercise-row"><div><div class="ex-name">Goblet Squat</div><div class="ex-note">Heaviest DB they have</div></div><div class="ex-sets">3 × 12</div></div>
+            <div class="exercise-row"><div><div class="ex-name">DB Bench or Push-Ups</div></div><div class="ex-sets">3 × 10–12</div></div>
+            <div class="exercise-row"><div><div class="ex-name">DB Single-Arm Row</div></div><div class="ex-sets">3 × 12 each</div></div>
+            <div class="exercise-row"><div><div class="ex-name">DB Romanian Deadlift</div></div><div class="ex-sets">3 × 12</div></div>
+            <div class="exercise-row"><div><div class="ex-name">DB Overhead Press</div></div><div class="ex-sets">3 × 10</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Bulgarian Split Squat</div><div class="ex-note">Bodyweight or light DB — bench behind you</div></div><div class="ex-sets">2 × 10 each</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Plank + Side Plank</div></div><div class="ex-sets">2 × 40s</div></div>
+            <div class="tip-box">💡 Landing after 9pm? Skip this and do the Thursday mobility routine instead. Lifting at 10pm costs you more in sleep than it gains you.</div>
+          </div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Travel Day Foot Care</div>
+          <div class="foot-item">· Roll a golf ball under each foot in the terminal — 2 min each</div>
+          <div class="foot-item">· Calf raises while waiting to board — 20 slow reps</div>
+          <div class="foot-item">· Walk the aisle every 90 min on the flight</div>
+        </div>
+      </div>
+
+      <div id="t-tue" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge rest">ZONE 2</span><h2>Hotel Gym — Golf Replacement</h2></div>
+          <p class="muted">This is Tuesday's walking-18 equivalent. Low intensity by design.</p>
+          <div class="section-label">Main · 40 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Incline Treadmill Walk</div><div class="ex-note">10–12% grade, 3.0–3.5 mph — mimics the golf course</div></div><div class="ex-sets">40 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Or Bike / Elliptical</div><div class="ex-note">If the treadmill's taken</div></div><div class="ex-sets">40 min</div></div>
+          <div class="section-label">Finisher · 12 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Pallof Press (band)</div><div class="ex-note">Pack a band — hotel gyms rarely have cables</div></div><div class="ex-sets">3 × 12 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Side Plank</div></div><div class="ex-sets">3 × 30s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Glute Bridge</div><div class="ex-note">Undoes yesterday's sitting</div></div><div class="ex-sets">2 × 15</div></div>
+          <div class="section-label">Mobility · 10 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div><div class="ex-note">The single most important one after a flight</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div></div><div class="ex-sets">60s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
+          <div class="tip-box">💡 If Monday's lift got skipped entirely, swap this for the dumbbell full body from the Monday tab and move Zone 2 to Wednesday.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: golf ball or water bottle underfoot, 2 min each before standing</div>
+          <div class="foot-item">· Evening: ice bottle from the hotel ice machine, 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="t-wed" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge run">RUN</span><h2>Outside if You Can</h2></div>
+          <p class="muted">Best day of the trip to get out of the hotel.</p>
+          <div class="section-label">Pre-Run · 6 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Foot Massage</div><div class="ex-note">Golf ball works if the lacrosse ball didn't make the bag</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Ankle Circles + Leg Swings</div></div><div class="ex-sets">20 / 10 each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Walk Warm-Up</div></div><div class="ex-sets">4 min</div></div>
+          <div class="section-label">Run · Pick by Conditions</div>
+          <div class="exercise-row"><div><div class="ex-name">Outside — easy loop</div><div class="ex-note">Under 85°F. Scout the route the night before.</div></div><div class="ex-sets run">3–4 miles</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Treadmill — 1% incline</div><div class="ex-note">Over 85°F, unfamiliar area, or dark</div></div><div class="ex-sets run">30 min</div></div>
+          <div class="section-label">Post-Run · 12 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Walk Cool-Down</div></div><div class="ex-sets">5 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch (straight + bent)</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Ice Bottle Foot Roll</div><div class="ex-note">Fill a water bottle, freeze it in the mini fridge</div></div><div class="ex-sets">3 min each</div></div>
+          <div class="tip-box run">💡 Hotel beds and unfamiliar shoes are hard on feet. If anything twinges, cut to 2 miles — Thursday's travel day gives you no chance to recover from an aggravation.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: golf ball or water bottle underfoot, 2 min each before standing</div>
+          <div class="foot-item">· Evening: ice bottle, 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="t-thu" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge rest">TRAVEL</span><h2>No Workout — Mobility Only</h2></div>
+          <p class="muted">Work all day, then straight to the airport. Trying to train today is how the whole week falls apart. This is the plan, not a failure.</p>
+          <div class="section-label">Morning · 8 min, hotel room</div>
+          <div class="exercise-row"><div><div class="ex-name">Foot Roll</div><div class="ex-note">Before your feet hit the floor</div></div><div class="ex-sets">2 min each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Low Lunge</div><div class="ex-note">Front-loads the hip work before a day of sitting</div></div><div class="ex-sets">90s each</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Calf Stretch (wall)</div></div><div class="ex-sets">90s each</div></div>
+          <div class="section-label">Airport · no equipment</div>
+          <div class="exercise-row"><div><div class="ex-name">Walk the Terminal</div><div class="ex-note">Skip the moving walkway. Free 15–20 min of movement.</div></div><div class="ex-sets">while waiting</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Standing Calf Raises</div><div class="ex-note">At the gate</div></div><div class="ex-sets">2 × 20</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Standing Hip Flexor Stretch</div></div><div class="ex-sets">60s each</div></div>
+          <div class="section-label">On the Plane</div>
+          <div class="exercise-row"><div><div class="ex-name">Aisle Walk</div></div><div class="ex-sets">every 90 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Seated Ankle Pumps</div><div class="ex-note">20 reps each hour — circulation, not fitness</div></div><div class="ex-sets">hourly</div></div>
+          <div class="section-label">Home, Before Bed · 5 min</div>
+          <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div><div class="ex-note">Best thing you can do after a travel day</div></div><div class="ex-sets">5 min</div></div>
+          <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
+          <div class="tip-box rest">💡 Nutrition is the whole game today. Airport food is where 165g of protein goes to die — pack jerky, a shake, or grab a rotisserie chicken bowl. Hit protein and you've won Thursday.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: golf ball or water bottle underfoot before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
+      <div id="t-fri" class="hidden">
+        <div class="card">
+          <div class="card-header"><span class="badge">HOME</span><h2>Friday — Ease Back In</h2></div>
+          <p class="muted">You got in late last night. Judge this one on how you slept.</p>
+          <div class="alt-block">
+            <span class="opt-tag">Option A · you slept fine</span>
+            <div class="section-label">Golf · Walk 18</div>
+            <div class="exercise-row"><div><div class="ex-name">Full round, walking</div><div class="ex-note">Standard pre-round mobility from the Home Week tab</div></div><div class="ex-sets">~4.5 mi</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option B · rough night</span>
+            <div class="section-label">Golf with a Cart, or Zone 2</div>
+            <div class="exercise-row"><div><div class="ex-name">Golf, cart</div><div class="ex-note">Still gets you outside without the 4.5 miles</div></div><div class="ex-sets">18 holes</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Or Zone 2 walk / bike</div></div><div class="ex-sets">40 min</div></div>
+          </div>
+          <div class="alt-block">
+            <span class="opt-tag">Option C · wrecked</span>
+            <div class="section-label">Recovery Only</div>
+            <div class="exercise-row"><div><div class="ex-name">Restorative Yoga</div></div><div class="ex-sets rest">25 min</div></div>
+            <div class="exercise-row"><div><div class="ex-name">Sauna + Theragun</div></div><div class="ex-sets">25 min</div></div>
+          </div>
+          <div class="tip-box">💡 Lift B is tomorrow and it's the anchor of the week. Whatever you pick today should leave you able to squat and deadlift Saturday morning.</div>
+        </div>
+        <div class="foot-box">
+          <div class="section-label">Plantar Fasciitis — Every Day</div>
+          <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
+          <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
+          <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
+        </div>
+      </div>
+
       <div class="card">
-        <div class="card-header"><span class="badge rest">YOGA</span><h2>Recovery Flow</h2></div>
-        <p class="muted">The only day with no load. This is what makes the rest of the week possible.</p>
-        <div class="section-label">Flow · 25 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Cat-Cow</div></div><div class="ex-sets">10 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Downward Dog to Cobra</div></div><div class="ex-sets">8 reps</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Low Lunge to Half Split</div><div class="ex-note">Hip flexors + hamstrings together</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div><div class="ex-note">Thoracic rotation — helps the backswing</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">3 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
-        <div class="section-label">Recovery Add-Ons</div>
-        <div class="exercise-row"><div><div class="ex-name">Foam Roll Full Body</div></div><div class="ex-sets">10 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Sauna</div></div><div class="ex-sets">15 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Theragun</div><div class="ex-note">Quads, calves, glutes</div></div><div class="ex-sets">10 min</div></div>
-        <div class="tip-box rest">💡 Keep this restorative, not power yoga. A hard vinyasa here is a fourth training day in disguise and defeats the point.</div>
+        <h2>What Goes in the Bag</h2>
+        <ul class="simple-list">
+          <li>Resistance band — replaces every cable machine a hotel gym doesn't have</li>
+          <li>Lacrosse ball, or use a golf ball from your bag</li>
+          <li>Running shoes — the one non-negotiable, hotel treadmills are fine but their loaner shoes aren't</li>
+          <li>Shaker bottle + 3–4 servings of protein powder in a ziplock</li>
+          <li>Jerky or protein bars for the Thursday travel day</li>
+        </ul>
+        <div class="tip-box">💡 A band and a pair of shoes turns any hotel room into a workable gym. Everything in the travel week above runs on dumbbells, a treadmill, or nothing at all.</div>
       </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
-
-    <div id="fri" class="hidden">
-      <div class="card">
-        <div class="card-header"><span class="badge">GOLF</span><h2>Walk 18</h2></div>
-        <p class="muted">Legs should feel fresh — yesterday was yoga only.</p>
-        <div class="section-label">Before the Round · 8 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lacrosse Ball Foot Massage</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hip Circles + Leg Swings</div></div><div class="ex-sets">10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Trunk Rotations</div></div><div class="ex-sets">15 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Band Pull-Aparts</div></div><div class="ex-sets">2 × 15</div></div>
-        <div class="section-label">On Course</div>
-        <div class="exercise-row"><div><div class="ex-name">Fuel at the turn</div><div class="ex-note">Protein-forward</div></div><div class="ex-sets">~300 cal</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Water + electrolytes</div></div><div class="ex-sets">throughout</div></div>
-        <div class="section-label">After the Round · 10 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Calf Stretch</div></div><div class="ex-sets">90s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Frozen Bottle Foot Roll</div></div><div class="ex-sets">3 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Pigeon Pose</div></div><div class="ex-sets">90s each</div></div>
-        <div class="tip-box">💡 Lift B is tomorrow. Eat a real dinner tonight — walking 18 on top of a deficit is where Saturday sessions go to die.</div>
-      </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
-
-    <div id="sat" class="hidden">
-      <div class="card">
-        <div class="card-header"><span class="badge pull">LIFT B</span><h2>Full Body — Pull Emphasis</h2></div>
-        <div class="section-label">Warm-Up · 5 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Jump Rope</div></div><div class="ex-sets">2 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Scapular Pull-Ups</div><div class="ex-note">Dead hang, shrug blades down</div></div><div class="ex-sets">2 × 8</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Inchworms + Hip Circles</div></div><div class="ex-sets">8 / 10 each</div></div>
-        <div class="section-label">Main · 32 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Band-Assisted Pull-Ups</div><div class="ex-note">Chin over bar, slow down</div></div><div class="ex-sets pull">4 × 6–8</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Trap Bar or Conventional Deadlift</div><div class="ex-note">Heavy hinge — the one Wed doesn't cover</div></div><div class="ex-sets">3 × 5–6</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Pulldown (Wide Grip)</div></div><div class="ex-sets pull">3 × 10–12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Bulgarian Split Squat</div><div class="ex-note">Single leg — carries over to walking 18</div></div><div class="ex-sets">3 × 10 each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Cable Seated Row</div></div><div class="ex-sets pull">3 × 12</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Face Pulls</div><div class="ex-note">Elbows high, undoes desk posture</div></div><div class="ex-sets pull">3 × 15</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Curl Bar Curls</div><div class="ex-note">Slow, no swinging</div></div><div class="ex-sets">2 × 10</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Hanging Knee Raises</div></div><div class="ex-sets">3 × 12</div></div>
-        <div class="section-label">Cool-Down + Yoga · 8 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Lat Stretch (hanging)</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Thread the Needle</div></div><div class="ex-sets">60s each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Child's Pose</div></div><div class="ex-sets">2 min</div></div>
-        <div class="tip-box pull">💡 Pull-ups first while fresh. Biceps last — rows and pulldowns already hit them.</div>
-      </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
-
-    <div id="sun" class="hidden">
-      <div class="card">
-        <div class="card-header"><span class="badge rest">REST</span><h2>Off Day — Pick One</h2></div>
-        <div class="section-label">Option A — Full Rest (default)</div>
-        <div class="exercise-row"><div><div class="ex-name">Walk</div><div class="ex-note">Easy, with the family</div></div><div class="ex-sets">20–30 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Gentle Yoga</div></div><div class="ex-sets">15 min</div></div>
-        <div class="section-label">Option B — Weekend Golf</div>
-        <div class="exercise-row"><div><div class="ex-name">Golf, cart or walk</div><div class="ex-note">Take a cart if you walked both Tue and Fri</div></div><div class="ex-sets">18 holes</div></div>
-        <div class="section-label">Option C — Third Lift</div>
-        <div class="exercise-row"><div><div class="ex-name">KB + Circuit</div><div class="ex-note">Unlock only after 4 weeks of complete sessions</div></div><div class="ex-sets">30 min</div></div>
-        <div class="section-label">Yoga · 15 min</div>
-        <div class="exercise-row"><div><div class="ex-name">Legs Up the Wall</div></div><div class="ex-sets">5 min</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Supine Twist</div></div><div class="ex-sets">2 min each</div></div>
-        <div class="exercise-row"><div><div class="ex-name">Seated Forward Fold</div></div><div class="ex-sets">3 min</div></div>
-        <div class="tip-box rest">💡 Pick one, not two. You already trained or walked five days this week. The recovery is the program, not a break from it.</div>
-      </div>
-      <div class="foot-box">
-        <div class="section-label">Plantar Fasciitis — Every Day</div>
-        <div class="foot-item">· Morning: lacrosse ball foot massage 2 min each before standing</div>
-        <div class="foot-item">· Evening: frozen bottle foot roll 3 min each</div>
-        <div class="foot-item">· Calf stretch (wall): 90s each leg</div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Yoga — How Much, When</h2>
-      <div class="exercise-row"><div><div class="ex-name">Lift and run days</div><div class="ex-note">Tacked onto the cool-down, restorative only</div></div><div class="ex-sets">8–10 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Golf days</div><div class="ex-note">Pre-round mobility + post-round hips</div></div><div class="ex-sets">10 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Thursday</div><div class="ex-note">The real session</div></div><div class="ex-sets rest">25–40 min</div></div>
-      <div class="exercise-row"><div><div class="ex-name">Sunday</div><div class="ex-note">Gentle, optional</div></div><div class="ex-sets rest">15 min</div></div>
-      <div class="tip-box rest">💡 Daily yoga is fine — as long as only one session per week is hard. Everything else is mobility attached to another workout.</div>
     </div>
 
     <p class="footer-note">Central nav is shared through nav.js.</p>
@@ -244,12 +504,30 @@
 
   <script src="nav.js"></script>
   <script>
-    function showWorkoutDay(id, btn) {
+    function showWeek(id, btn) {
+      ['home-week', 'travel-week'].forEach(x => {
+        document.getElementById(x).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function showHomeDay(id, btn) {
       ['mon','tue','wed','thu','fri','sat','sun'].forEach(day => {
         document.getElementById(day).classList.add('hidden');
       });
       document.getElementById(id).classList.remove('hidden');
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('#home-week .tab').forEach(tab => tab.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function showTravelDay(id, btn) {
+      ['t-mon','t-tue','t-wed','t-thu','t-fri'].forEach(day => {
+        document.getElementById(day).classList.add('hidden');
+      });
+      document.getElementById(id).classList.remove('hidden');
+      document.querySelectorAll('#travel-week .tab').forEach(tab => tab.classList.remove('active'));
       btn.classList.add('active');
     }
   </script>
